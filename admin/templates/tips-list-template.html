@@ -1,0 +1,5 @@
+<ol id="allTips">
+			<% _.each(tips, function(tip, idx) { %> 
+				<li class="ui-widget-content" data-tip-id="<%=tip.id%>"><%=idx%>. <%=tip.get("msg").slice(0, 10)%></li>
+			<% }); %>
+</ol>
