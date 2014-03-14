@@ -34,7 +34,6 @@ app.post('/', function (request, response){
 });
 
 var port = process.env.PORT || 5000;
-
-var  server = app.listen(port, function(){
+app.listen(port, function(){
 	console.log('Server started');
 });
