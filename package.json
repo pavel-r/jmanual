@@ -17,5 +17,10 @@
     "type": "git",
     "url": "https://github.com/pavel-r/jmanual"
   },
-  "author": "Pavel Rabetski"
+  "keywords": [
+    "node",
+    "heroku"
+  ],
+  "author": "Pavel Rabetski",
+  "license": "BSD"
 }

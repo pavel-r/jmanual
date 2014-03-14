@@ -33,6 +33,8 @@ app.post('/', function (request, response){
 	response.send(content.toString());
 });
 
-var  server = app.listen(8080, function(){
+var port = process.env.PORT || 5000;
+
+var  server = app.listen(port, function(){
 	console.log('Server started');
 });
