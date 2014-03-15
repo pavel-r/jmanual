@@ -19,7 +19,7 @@
 	
 	var LessonView = Backbone.View.extend({
 		el : "#listPanel",
-		template: _.template(window['JST']['admin/templates/tips-list-template.html']),
+		template: window['JST']['admin/templates/tips-list-template.html'],
 		events: {
 			"click li" : "selectTip"
 		},
@@ -46,7 +46,7 @@
 	
 	var TipEditView = Backbone.View.extend({
 		el : "#detailsPanel",
-		template: _.template(window['JST']['admin/templates/tip-details-template.html']),
+		template: window['JST']['admin/templates/tip-details-template.html'],
 		events : {
 			"click #saveBtn" : "saveTip",
 			"click #deleteBtn" : "deleteTip"
@@ -88,7 +88,7 @@
 	
 	var TipBubbleView = Backbone.View.extend({
 		el: "#tipContainer",
-		template: _.template(window['JST']['admin/templates/tip-bubble-template.html']),
+		template: window['JST']['admin/templates/tip-bubble-template.html'],
 		render: function(options){
 			var tip = lesson.get(options.id);
 			var firstFound = getElem(tip.get("selector"))[0];
@@ -109,7 +109,7 @@
 	});
 	
 	var AppView = Backbone.View.extend({
-		template: _.template(window['JST']['admin/templates/admin-panel-template.html']),
+		template: window['JST']['admin/templates/admin-panel-template.html'],
 		events: {
 			"click #newTipBtn" : "openTipDetails",
 			"click #showModelBtn" : "showModel"
