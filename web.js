@@ -3,22 +3,11 @@ var express = require('express');
 var app = express();
 app.use(express.logger());
 app.use(express.bodyParser());
-app.use('/templates',express.static('templates'));
+app.use('/admin',express.static('admin'));
+app.use('/client',express.static('client'));
 
 app.get('/', function (request, response) {
 	var content = fs.readFileSync('index.html');
-	response.send(content.toString());
-	console.log('Request processed');
-});
-
-app.get('/jmanual.admin.js', function (request, response) {
-	var content = fs.readFileSync('jmanual.admin.js');
-	response.send(content.toString());
-	console.log('Request processed');
-});
-
-app.get('/jmanual.client.js', function (request, response) {
-	var content = fs.readFileSync('jmanual.client.js');
 	response.send(content.toString());
 	console.log('Request processed');
 });
