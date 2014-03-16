@@ -14,7 +14,7 @@ this["JST"]["admin/templates/client-panel-template.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="clientPanel" style="position: absolute; backgroung-color: red; top: 0px; right: 0px;">\n\t<a id="startBtn" href=# onclick="beginTraining();">Start training</a>\n</div>\n<div id="tipContainer"></div>';
+__p += '<div id="clientPanel" style="position: absolute; backgroung-color: red; top: 0px; right: 0px;">\n\t<a id="startBtn" href=# onclick="beginTraining();">Start training</a><br/>\n\t<a id="startBtn" href=# onclick="nextTip();">Next tip</a>\n</div>\n<div id="tipContainer"></div>';
 
 }
 return __p
