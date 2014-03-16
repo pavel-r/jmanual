@@ -17,7 +17,7 @@ app.post('/', function (request, response){
 	var jscontent = fs.readFileSync('jmanualClientTemplate.js').toString();
 	//check JSON validity
 	jscontent = jscontent.replace("@data@", request.body.modelData);
-	fs.writeFileSync('jmanualClient.js', jscontent);
+	fs.writeFileSync('client/js/jmanualClient.js', jscontent);
 	var content = fs.readFileSync('index.html');
 	response.send(content.toString());
 });
