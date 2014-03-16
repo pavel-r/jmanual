@@ -3,8 +3,7 @@ var beginTraining;
 
 (function(){
 
-var tips = [{"selector":"#menu","msg":"Menu","id":"2fa52c89-efe9-1ce2-219e-cbf804f3ee2a"},{"selector":"#footer","msg":"Footer 2","id":"fcc9e32c-4fa2-d176-3c01-6ea22eb3ee04"}];
-
+var tips = [];
 function setCookie(cname,cvalue,exdays)
 {
 	var d = new Date();
