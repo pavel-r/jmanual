@@ -4,23 +4,42 @@ var beginTraining;
 (function(){
 
 var tips = @data@;
+function setCookie(cname,cvalue,exdays)
+{
+	var d = new Date();
+	d.setTime(d.getTime()+(exdays*24*60*60*1000));
+	var expires = "expires="+d.toGMTString();
+	document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+
+function getCookie(cname)
+{
+	var name = cname + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0; i<ca.length; i++)
+	{
+		var c = ca[i].trim();
+		if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+	}
+	return "";
+}
 
 beginTraining = function(){
-	$.cookie("jTipId", 0, { expires: 365 });
+	setCookie("jTipId", 0, 365);
 	nextTip();
 }
 
 nextTip = function () {
-        var nextTipId = 1 * $.cookie("jTipId");
+        var nextTipId = 1 * getCookie("jTipId");
         if (nextTipId == null) {
             nextTipId = 0;
         }
         if (showTip(nextTipId)){
-            $.cookie("jTipId", 1 + nextTipId, { expires: 365 });
+            setCookie("jTipId", 1 + nextTipId, 365);
         } else {
             alert('End of training');
             $("#tipContainer").html("");
-            $.cookie("jTipId", 0, { expires: 365 });
+            setCookie("jTipId", 0, 365);
         }
 }
 
@@ -48,8 +67,8 @@ function showTip(idx) {
 
 function showClientPanel() {
 	//Initialize templates
-	clientPanelTemplate = _.template($('#client-panel-template').html());
-	theTipTemplate = _.template($('#tip-bubble-template').html());
+	clientPanelTemplate = window['JST']['admin/templates/client-panel-template.html'];
+	theTipTemplate = window['JST']['admin/templates/tip-bubble-template.html'];
 
 	//Create DOM elements
 	$('body').append(clientPanelTemplate());
