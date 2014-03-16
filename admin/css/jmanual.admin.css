@@ -1,6 +1,3 @@
-.ui-widget {
-			font-size: 72.5%;
-		}
 #allTips .ui-selecting { background: #FECA40; }
 #allTips .ui-selected { background: #F39814; color: white; }
 #allTips { list-style-type: none; margin: 0; padding: 0; }
