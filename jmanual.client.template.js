@@ -50,7 +50,7 @@ var closeTip;
         if (nextTipId == null) {
             nextTipId = 0;
         }
-        if(nextTipId >= tips.lenght){
+        if(nextTipId >= tips.length){
             alert('End of training');
             setCookie("jTipId", 0, 365);  
 	    return;
