@@ -30,7 +30,7 @@ __p += '<div id="msgWindow" style="position:absolute; left: ' +
 ((__t = (top)) == null ? '' : __t) +
 'px;">\n\t\t<p class="triangle-isosceles top" style="font-size: 12px;">' +
 ((__t = (msg)) == null ? '' : __t) +
-'\n\t\t  <a href=# onclick="nextTip();return false;">OK</a>\n\t\t</p>\n</div>\n';
+'\n\t\t  <a href=# onclick="closeTip();return false;">OK</a>\n\t\t</p>\n</div>\n';
 
 }
 return __p
