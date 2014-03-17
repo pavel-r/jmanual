@@ -1,3 +1,7 @@
+function nextTip(){
+    //dummy function to make browser happy when running in admin mode
+}
+
 (function(){
 
 	var Tip = Backbone.Model.extend({
