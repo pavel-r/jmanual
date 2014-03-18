@@ -8,30 +8,32 @@ app.use('/client',express.static('client'));
 
 
 app.get('/', function (request, response) {
-	var content = fs.readFileSync('index.html');
-	response.send(content.toString());
-	console.log('Request processed');
+    var content = fs.readFileSync('index.html');
+    response.send(content.toString());
+    console.log('Request processed');
 });
 
 app.get('/cors', function (request, response) {
-	console.log('CORS GET Request processed');
+    console.log('CORS GET Request processed');
+    response.send("");
 });
 
 app.post('/cors', function (request, response) {
-	console.log('CORS POST Request processed');
+    console.log('CORS POST Request processed');
+    response.send("");
 });
 
 app.post('/', function (request, response){
-	console.log("Data: " + request.body.modelData);
-	var jscontent = fs.readFileSync('jmanual.client.template.js').toString();
-	//check JSON validity
-	jscontent = jscontent.replace("@data@", request.body.modelData);
-	fs.writeFileSync('client/js/jmanual.client.js', jscontent);
-	var content = fs.readFileSync('index.html');
-	response.send(content.toString());
+    console.log("Data: " + request.body.modelData);
+    var jscontent = fs.readFileSync('jmanual.client.template.js').toString();
+    //check JSON validity
+    jscontent = jscontent.replace("@data@", request.body.modelData);
+    fs.writeFileSync('client/js/jmanual.client.js', jscontent);
+    var content = fs.readFileSync('index.html');
+    response.send(content.toString());
 });
 
 var port = process.env.PORT || 5000;
 app.listen(port, function(){
-	console.log('Server started');
+    console.log('Server started');
 });
