@@ -137,7 +137,7 @@ function nextTip(){
 		},
 		saveModel: function() {
 		    //alert(JSON.stringify(lesson));
-		    var url = "http://ancient-gorge-2130.herokuapp.com/cors";
+		    var url = "//ancient-gorge-2130.herokuapp.com/cors";
 		    var xhr = createCORSRequest('GET', url);
 		    if(!xhr){
 			alert('CORS not supported');
