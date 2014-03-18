@@ -4,7 +4,7 @@ this["JST"]["admin/templates/admin-panel-template.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="adminPanel" title="Administration panel" style="">\n\t\t\t\t<p>\n\t\t\t\t\t<div id="listPanel" style=""></div>\n\t\t\t\t\t<a id="newTipBtn" href=#>New</a>\n\t\t\t\t\t<a id="saveModelBtn" href=#>Show model</a>\n\t\t\t\t\t<div id="detailsPanel" style="" title=""></div>\n\t\t\t\t</p>\n</div>\n<div id="tipContainer"></div>\n';
+__p += '<div id="adminPanel" title="Administration panel" style="">\n\t\t\t\t<p>\n\t\t\t\t\t<div id="listPanel" style=""></div>\n\t\t\t\t\t<a id="newTipBtn" href=#>New</a>\n\t\t\t\t\t<a id="saveModelBtn" href=#>Save model</a>\n\t\t\t\t\t<div id="detailsPanel" style="" title=""></div>\n\t\t\t\t</p>\n</div>\n<div id="tipContainer"></div>\n';
 
 }
 return __p

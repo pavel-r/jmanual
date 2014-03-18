@@ -15,11 +15,15 @@ app.get('/', function (request, response) {
 
 app.get('/cors', function (request, response) {
     console.log('CORS GET Request processed');
+    response.setHeader("Access-Control-Allow-Origin", "*");
+    response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
     response.send("");
 });
 
 app.post('/cors', function (request, response) {
     console.log('CORS POST Request processed');
+    response.setHeader("Access-Control-Allow-Origin", "*");
+    response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
     response.send("");
 });
 

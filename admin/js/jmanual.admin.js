@@ -129,7 +129,7 @@ function nextTip(){
 			this.$el.append(this.template());
 			$('#adminPanel').dialog();
 			$('#newTipBtn').button();
-			$('#showModelBtn').button();
+			$('#saveModelBtn').button();
 		},
 		openTipDetails : function(){
 			tipEditView.render({});
