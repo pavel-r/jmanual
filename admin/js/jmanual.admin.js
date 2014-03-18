@@ -116,7 +116,7 @@ function nextTip(){
 		template: window['JST']['admin/templates/admin-panel-template.html'],
 		events: {
 			"click #newTipBtn" : "openTipDetails",
-			"click #showModelBtn" : "showModel"
+			"click #saveModelBtn" : "saveModel"
 		},
 		initialize: function() {
 			this.render();
@@ -135,8 +135,21 @@ function nextTip(){
 			tipEditView.render({});
 			tipBubbleView.hide();
 		},
-		showModel: function() {
-			alert(JSON.stringify(lesson));
+		saveModel: function() {
+		    //alert(JSON.stringify(lesson));
+		    var url = "http://ancient-gorge-2130.herokuapp.com/cors";
+		    var xhr = createCORSRequest('GET', url);
+		    if(!xhr){
+			alert('CORS not supported');
+			return;
+		    }
+		    xhr.onload = function(){
+			alert('success');
+		    }
+		    xhr.onerror = function(){
+			alert('error');
+		    }
+		    xhr.send();
 		}
 	});
 	

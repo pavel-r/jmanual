@@ -6,10 +6,19 @@ app.use(express.bodyParser());
 app.use('/admin',express.static('admin'));
 app.use('/client',express.static('client'));
 
+
 app.get('/', function (request, response) {
 	var content = fs.readFileSync('index.html');
 	response.send(content.toString());
 	console.log('Request processed');
+});
+
+app.get('/cors', function (request, response) {
+	console.log('CORS GET Request processed');
+});
+
+app.post('/cors', function (request, response) {
+	console.log('CORS POST Request processed');
 });
 
 app.post('/', function (request, response){
