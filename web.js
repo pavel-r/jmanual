@@ -23,6 +23,7 @@ app.get('/cors', function (request, response) {
 app.post('/cors', function (request, response) {
     console.log('CORS POST Request processed');
     console.log(request.tipdata);
+    conaole.log(request.data);
     if(request.body){
 	console.log(request.body.tipdata);
     }
