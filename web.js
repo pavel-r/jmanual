@@ -22,10 +22,12 @@ app.get('/cors', function (request, response) {
 
 app.post('/cors', function (request, response) {
     console.log('CORS POST Request processed');
-    console.log(request.tipdata);
-    console.log(request.data);
     if(request.body){
 	console.log(request.body.tipdata);
+	var jscontent = fs.readFileSync('jmanual.client.template.js').toString();
+	//check JSON validity
+	jscontent = jscontent.replace("@data@", request.body.tipdata);
+	fs.writeFileSync('client/js/jmanual.client.js', jscontent);
     }
     response.setHeader("Access-Control-Allow-Origin", "*");
     response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");

@@ -157,7 +157,7 @@ function nextTip(){
 			url: url,
 			type: "POST",
 			crossDomain: true,
-			data: {"tipdata" : "test"},
+			data: {"tipdata" : JSON.stringify(lesson)},
 			dataType: "json",
 			success: function (response) {
 			    alert(response.status);
