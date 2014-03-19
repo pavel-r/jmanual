@@ -160,7 +160,7 @@ function nextTip(){
 			data: {"tipdata" : "test"},
 			dataType: "json",
 			success: function (response) {
-			    alert(resp.status);
+			    alert(response.status);
 			},
 			error: function (xhr, status) {
 			    alert("error");
