@@ -138,7 +138,7 @@ function nextTip(){
 		saveModel: function() {
 		    //alert(JSON.stringify(lesson));
 		    var url = "//ancient-gorge-2130.herokuapp.com/cors";
-		    
+		    /*
 		    var xhr = createCORSRequest('POST',url);
 		    if(!xhr){
 			alert('CORS not supported');
@@ -151,23 +151,22 @@ function nextTip(){
 			alert('error');
 		    }
 		    xhr.send("tipdata=test");
+		    */
 		    
-		    /*
 		    $.ajax({
 			url: url,
 			type: "POST",
 			crossDomain: true,
-			data: {"data" : "test"},
+			data: {"tipdata" : "test"},
 			dataType: "json",
 			success: function (response) {
-			    var resp = JSON.parse(response)
 			    alert(resp.status);
 			},
 			error: function (xhr, status) {
 			    alert("error");
 			}
 		    });
-		    */
+		    
 		}
 	});
     
