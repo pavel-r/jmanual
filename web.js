@@ -29,7 +29,7 @@ app.post('/cors', function (request, response) {
     }
     response.setHeader("Access-Control-Allow-Origin", "*");
     response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-    response.send("");
+    response.send("[]");
 });
 
 app.post('/', function (request, response){
