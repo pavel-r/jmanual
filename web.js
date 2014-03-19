@@ -22,6 +22,7 @@ app.get('/cors', function (request, response) {
 
 app.post('/cors', function (request, response) {
     console.log('CORS POST Request processed');
+    console.log(request.tipdata);
     response.setHeader("Access-Control-Allow-Origin", "*");
     response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
     response.send("");
