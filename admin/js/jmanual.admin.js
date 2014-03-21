@@ -108,6 +108,8 @@ function nextTip(){
 		    position.left += firstFound.offs.left;
 		    position.top += 15;
 		    this.$el.html(this.template({ left: (position.left + "px"), top: (position.top + "px"), msg: tip.get("msg"), cssclass: "triangle-isosceles top"}));
+		} else {
+		    this.$el.html(this.template({ left: "50%", top: "50%", msg: "Cannot show next tip. Make sure you did all previous steps correctly and try again.", cssclass: "alert-msg"}));		    
 		}
 	    }
 	},
