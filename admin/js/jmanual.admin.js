@@ -98,7 +98,7 @@ function nextTip(){
 	    var tip = lesson.get(options.id);
 	    var selector = tip.get("selector");
 	    if(selector == ""){
-		this.$el.html(this.template({ left: "50%", top: "50%"), msg: tip.get("msg"), cssclass: "notriangle-msg"}));
+		this.$el.html(this.template({ left: "50%", top: "50%", msg: tip.get("msg"), cssclass: "notriangle-msg"}));
 	    } else {
 		var firstFound = getElem(tip.get("selector"))[0];
 		if(firstFound){
