@@ -90,27 +90,31 @@ function nextTip(){
 		}
 	});
 	
-	var TipBubbleView = Backbone.View.extend({
-		el: "#tipContainer",
-		template: window['JST']['admin/templates/tip-bubble-template.html'],
-		render: function(options){
-			var tip = lesson.get(options.id);
-			var firstFound = getElem(tip.get("selector"))[0];
-			if(firstFound){
-				var el = firstFound.elem;
-				var position = (el == null ? null : $(el).offset());
-				position.top += firstFound.offs.top;
-				position.left += firstFound.offs.left;
-				position.top += 15;
-				this.$el.html(this.template({ left: position.left, top: position.top, msg: tip.get("msg")}));
-			} else {
-				this.hide();
-			}
-		},
-		hide: function(){
-			this.$el.html("");
+    var TipBubbleView = Backbone.View.extend({
+	el: "#tipContainer",
+	template: window['JST']['admin/templates/tip-bubble-template.html'],
+	render: function(options){
+	    this.hide();
+	    var tip = lesson.get(options.id);
+	    var selector = tip.get("selector");
+	    if(selector == ""){
+		this.$el.html(this.template({ left: "50%", top: "50%"), msg: tip.get("msg"), cssclass: "notriangle-msg"}));
+	    } else {
+		var firstFound = getElem(tip.get("selector"))[0];
+		if(firstFound){
+		    var el = firstFound.elem;
+		    var position = (el == null ? null : $(el).offset());
+		    position.top += firstFound.offs.top;
+		    position.left += firstFound.offs.left;
+		    position.top += 15;
+		    this.$el.html(this.template({ left: (position.left + "px"), top: (position.top + "px"), msg: tip.get("msg"), cssclass: "triangle-isosceles top"}));
 		}
-	});
+	    }
+	},
+	hide: function(){
+	    this.$el.html("");
+	}
+    });
 	
 	var AppView = Backbone.View.extend({
 		template: window['JST']['admin/templates/admin-panel-template.html'],
@@ -178,3 +182,4 @@ function nextTip(){
 		App = new AppView({el: 'body'});
 	});
 })();
+2

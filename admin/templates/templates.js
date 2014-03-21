@@ -26,9 +26,11 @@ var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<div id="msgWindow" style="position:absolute; left: ' +
 ((__t = (left)) == null ? '' : __t) +
-'px; top: ' +
+'; top: ' +
 ((__t = (top)) == null ? '' : __t) +
-'px;">\n\t\t<p class="triangle-isosceles top" style="font-size: 12px;">' +
+';">\n\t\t<p class="' +
+((__t = (cssclass)) == null ? '' : __t) +
+'" style="font-size: 12px;">' +
 ((__t = (msg)) == null ? '' : __t) +
 '\n\t\t  <a href=# onclick="closeTip();return false;">OK</a>\n\t\t</p>\n</div>\n';
 
