@@ -65,7 +65,7 @@ var closeTip;
 	if (tip == null){
 	    return false;
 	}
-	var selector = tip.get("selector");
+	var selector = tip.selector;
 	if(selector == ""){
 	    $("#tipContainer").html(theTipTemplate({ left: "50%", top: "50%", msg: tip.msg, cssclass: "notriangle-msg"}));
 	    return true;
