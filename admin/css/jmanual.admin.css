@@ -24,6 +24,8 @@
   -webkit-border-radius:10px;
   -moz-border-radius:10px;
   border-radius:10px;
+  width: 300px;
+  margin-left: -150px;
 }
 .alert-msg{
   position:relative;
@@ -34,6 +36,8 @@
   -webkit-border-radius:10px;
   -moz-border-radius:10px;
   border-radius:10px;
+  width: 300px;
+  margin-left: -150px;
 }
 .triangle-isosceles {
   position:relative;
