@@ -192,7 +192,7 @@ function nextTip(){
 			html.push(STYLES[i]);
 			html.push('" type="text/css" rel="stylesheet"></link>\n');
 		}
-		$(head).append(html);
+	        $('head').append(html);
 		
 		//launch the app
 		App = new AppView({el: 'body'});
