@@ -1,6 +1,4 @@
-function nextTip(){
-    //dummy function to make browser happy when running in admin mode
-}
+var nextTip;
 
 (function(){
 
@@ -128,6 +126,9 @@ function nextTip(){
 			this.render();
 			tipEditView = new TipEditView;
 			tipBubbleView = new TipBubbleView;
+			nextTip = function(){
+				tipBubbleView.hide();
+			}
 			lessonView = new LessonView;
 			lessonView.render();
 		},
