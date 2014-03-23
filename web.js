@@ -9,36 +9,38 @@ app.use('/admin',express.static('admin'));
 app.use('/client',express.static('client'));
 
 var authFunc = function(username, password){
-	return username === 'pavel' && password === '111';
+    return username === 'pavel' && password === '111';
 };
 
 app.get('/', function (request, response) {
-	if(request.session.username){
-		var content = fs.readFileSync('index.loggedin.html');
-		var contentStr = content.toString();
-		contentStr = contentStr.replace('@user@', request.session.username);
-		response.send(contentStr);
-	} else {
-		var content = fs.readFileSync('index.html');
-		response.send(content.toString());
-	}
-	console.log('Request processed');
+    if(request.session.username){
+	var content = fs.readFileSync('index.loggedin.html');
+	var contentStr = content.toString();
+	contentStr = contentStr.replace('@user@', request.session.username);
+	response.send(contentStr);
+    } else {
+	var content = fs.readFileSync('index.html');
+	response.send(content.toString());
+    }
+    console.log('Request processed');
 });
 
 app.post('/', function (request, response) {
-	var username = request.body.email;
-	var password = request.body.password;
-	if(authFunc(username,password)){
-		request.session.username = username;
-		var content = fs.readFileSync('index.loggedin.html');
-		var contentStr = content.toString();
-		contentStr = contentStr.replace('@user@', request.session.username);
-		response.send(contentStr);
-	} else {
-		var content = fs.readFileSync('index.html');
-		response.send(content.toString());
-	}
-	console.log('Request processed');
+    var username = request.body.email;
+    var password = request.body.password;
+    console.log('Username : ' + username);
+    console.log('Password : ' + password);
+    if(authFunc(username,password)){
+	request.session.username = username;
+	var content = fs.readFileSync('index.loggedin.html');
+	var contentStr = content.toString();
+	contentStr = contentStr.replace('@user@', request.session.username);
+	response.send(contentStr);
+    } else {
+	var content = fs.readFileSync('index.html');
+	response.send(content.toString());
+    }
+    console.log('Request processed');
 });
 
 app.post('/cors', function (request, response) {
