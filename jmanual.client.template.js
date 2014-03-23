@@ -89,16 +89,30 @@ var closeTip;
     }
 
     function showClientPanel() {
-	//Initialize templates
-	clientPanelTemplate = window['JST']['admin/templates/client-panel-template.html'];
-	theTipTemplate = window['JST']['admin/templates/tip-bubble-template.html'];
+		//Initialize templates
+		clientPanelTemplate = window['JST']['admin/templates/client-panel-template.html'];
+		theTipTemplate = window['JST']['admin/templates/tip-bubble-template.html'];
 
-	//Create DOM elements
-	$('body').append(clientPanelTemplate());
+		//Create DOM elements
+		$('body').append(clientPanelTemplate());
     }
 
     $(window).load(function () {
-	showClientPanel();
+		//load css files
+		var STYLES = [         // the css filenames
+			"//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css",
+			"//ancient-gorge-2130.herokuapp.com/admin/css/jmanual.admin.css"
+		];
+		var html = [];
+		for (var i = 0; i < STYLES.length; i++) {
+			html.push('<link href="');
+			html.push(STYLES[i]);
+			html.push('" type="text/css" rel="stylesheet"></link>\n');
+		}
+		$('head').append(html.join(''));
+		
+		//launch client app
+		showClientPanel();
     });
 
     var clientPanelTemplate;
