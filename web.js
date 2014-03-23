@@ -4,7 +4,7 @@ var app = express();
 app.use(express.logger());
 app.use(express.bodyParser());
 app.use(express.cookieParser());
-app.use(express.session({secret: 'dskltKije34566lkIkd'}));
+app.use(express.session({secret: '12345qwerty', key: 'sid'}));
 app.use('/admin',express.static('admin'));
 app.use('/client',express.static('client'));
 
@@ -17,6 +17,7 @@ app.get('/', function (request, response) {
 		var content = fs.readFileSync('index.loggedin.html');
 		var contentStr = content.toString();
 		contentStr = contentStr.replace('@user@', request.session.username);
+		contentStr = contentStr.replace('@sid@', requst.session.sid);
 		response.send(contentStr);
 	} else {
 		var content = fs.readFileSync('index.html');
