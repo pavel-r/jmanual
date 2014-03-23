@@ -105,7 +105,7 @@ var closeTip;
 			html.push(STYLES[i]);
 			html.push('" type="text/css" rel="stylesheet"></link>\n');
 		}
-		$(head).append(html);
+		$('head').append(html.join(''));
 		
 		//launch client app
 		showClientPanel();
