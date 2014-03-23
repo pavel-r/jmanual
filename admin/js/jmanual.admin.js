@@ -193,7 +193,7 @@ function nextTip(){
 			html.push('" type="text/css" rel="stylesheet"></link>\n');
 		}
 	        $('head').append(html.join(''));
-		
+
 		//launch the app
 		App = new AppView({el: 'body'});
 	});
