@@ -1,4 +1,6 @@
-var nextTip;
+function closeTip(){
+	//just a stub
+}
 
 (function(){
 
@@ -126,9 +128,6 @@ var nextTip;
 			this.render();
 			tipEditView = new TipEditView;
 			tipBubbleView = new TipBubbleView;
-			nextTip = function(){
-				tipBubbleView.hide();
-			}
 			lessonView = new LessonView;
 			lessonView.render();
 		},
