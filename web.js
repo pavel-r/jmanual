@@ -17,7 +17,7 @@ app.get('/', function (request, response) {
 		var content = fs.readFileSync('index.loggedin.html');
 		var contentStr = content.toString();
 		contentStr = contentStr.replace('@user@', request.session.username);
-		contentStr = contentStr.replace('@sid@', requst.session.sid);
+		contentStr = contentStr.replace('@sid@', request.session.sid);
 		response.send(contentStr);
 	} else {
 		var content = fs.readFileSync('index.html');
@@ -36,6 +36,7 @@ app.post('/', function (request, response) {
 	var content = fs.readFileSync('index.loggedin.html');
 	var contentStr = content.toString();
 	contentStr = contentStr.replace('@user@', request.session.username);
+	contentStr = contentStr.replace('@sid@', request.session.sid);
 	response.send(contentStr);
     } else {
 	var content = fs.readFileSync('index.html');
