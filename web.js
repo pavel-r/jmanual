@@ -1,5 +1,6 @@
 var fs = require('fs');
 var express = require('express');
+var pg = require('pg');
 var app = express();
 app.use(express.logger());
 app.use(express.bodyParser());
@@ -8,8 +9,18 @@ app.use(express.session({secret: '12345qwerty', key: 'sid'}));
 app.use('/admin',express.static('admin'));
 app.use('/client',express.static('client'));
 
+//connect to db
+var conString = "pg://aomuzuzlcwkdxy:n-n0Ip-YoA2o942Ja-z49odhWC@ec2-54-204-37-113.compute-1.amazonaws.com:5432/dcg5cfm76mef41";
+var dbClient = new pg.Client(conString);
+dbClient.connect();
+
 var authFunc = function(username, password){
-    return username === 'pavel' && password === '111';
+    var query = client.query('SELECT password FROM users WHERE email = $1', username);
+	query.on('row', function(row){
+		console.log(row);
+	});
+	//query.execute();
+	return true;
 };
 
 app.get('/', function (request, response) {
