@@ -13,17 +13,18 @@ var authFunc = function(username, password){
 };
 
 app.get('/', function (request, response) {
-	if(request.session.username){
-		var content = fs.readFileSync('index.loggedin.html');
-		var contentStr = content.toString();
-		contentStr = contentStr.replace('@user@', request.session.username);
-		contentStr = contentStr.replace('@sid@', request.session.sid);
-		response.send(contentStr);
-	} else {
-		var content = fs.readFileSync('index.html');
-		response.send(content.toString());
-	}
-	console.log('Request processed');
+    if(request.session.username){
+	var content = fs.readFileSync('index.loggedin.html');
+	var contentStr = content.toString();
+	contentStr = contentStr.replace('@user@', request.session.username);
+	contentStr = contentStr.replace('@sid@', request.session.sid);
+	console.log(request.sessionID);
+	response.send(contentStr);
+    } else {
+	var content = fs.readFileSync('index.html');
+	response.send(content.toString());
+    }
+    console.log('Request processed');
 });
 
 app.post('/', function (request, response) {
