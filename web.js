@@ -15,12 +15,12 @@ var dbClient = new pg.Client(conString);
 dbClient.connect();
 
 var authFunc = function(username, password){
-    var query = client.query('SELECT password FROM users WHERE email = $1', username);
-	query.on('row', function(row){
-		console.log(row);
-	});
-	//query.execute();
-	return true;
+    var query = dbClient.query('SELECT password FROM users WHERE email = $1', username);
+    query.on('row', function(row){
+	console.log(row);
+    });
+    //query.execute();
+    return true;
 };
 
 app.get('/', function (request, response) {
