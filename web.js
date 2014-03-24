@@ -10,7 +10,7 @@ app.use('/admin',express.static('admin'));
 app.use('/client',express.static('client'));
 
 //connect to db
-var conString = "pg://aomuzuzlcwkdxy:n-n0Ip-YoA2o942Ja-z49odhWC@ec2-54-204-37-113.compute-1.amazonaws.com:5432/dcg5cfm76mef41";
+var conString = "postgres://aomuzuzlcwkdxy:n-n0Ip-YoA2o942Ja-z49odhWC@ec2-54-204-37-113.compute-1.amazonaws.com:5432/dcg5cfm76mef41";
 var dbClient = new pg.Client(conString);
 dbClient.connect();
 
