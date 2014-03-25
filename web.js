@@ -20,22 +20,21 @@ MongoClient.connect(conString, conOptions, function(err, db){
     } else {
 	console.log('Connected to DB!');
 	p_db = db;
-	p_db.collection('users').find().toArray(function(err, items){
-	    console.log(items);
-	    console.log(items.lenght);
-	});
     }
 });
 
 var authFunc = function(email, password){
-//    var user = p_db.collection("users").findOne();
-    var user = null;
-    if(user){
-	console.log(user);
-	return true;
-    } else {
-	return false;
-    }
+    p_db.collection('users').find({email : 'avel@test.com', password : '111'}).toArray(function(err, items){
+        console.log(items);
+	var user = null;
+	if(user){
+	    console.log(user);
+	    return true;
+	} else {
+	    return false;
+	}
+    });
+
 };
 
 app.get('/', function (request, response) {
@@ -58,18 +57,20 @@ app.post('/', function (request, response) {
     var password = request.body.password;
     console.log('Username : ' + username);
     console.log('Password : ' + password);
-    if(authFunc(username,password)){
-	request.session.username = username;
-	var content = fs.readFileSync('index.loggedin.html');
-	var contentStr = content.toString();
-	contentStr = contentStr.replace('@user@', request.session.username);
-	contentStr = contentStr.replace('@sid@', request.session.sid);
-	response.send(contentStr);
-    } else {
-	var content = fs.readFileSync('index.html');
-	response.send(content.toString());
-    }
-    console.log('Request processed');
+    p_db.collection('users').find({email : username, password : password}).toArray(function(err, items){
+        console.log(items);
+	if(items.length > 0){
+	    request.session.username = username;
+	    var content = fs.readFileSync('index.loggedin.html');
+	    var contentStr = content.toString();
+	    contentStr = contentStr.replace('@user@', request.session.username);
+	    contentStr = contentStr.replace('@sid@', request.session.sid);
+	    response.send(contentStr);
+	} else {
+	    var content = fs.readFileSync('index.html');
+	    response.send(content.toString());
+	}
+    });
 });
 
 app.post('/cors', function (request, response) {
