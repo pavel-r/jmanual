@@ -20,8 +20,8 @@ MongoClient.connect(conString, conOptions, function(err, db){
     } else {
 	console.log('Connected to DB!');
 	p_db = db;
-	p_db.collection('users').find(function(err, item){
-	    console.log(item);
+	p_db.collection('users').find().toArray(function(err, items){
+	    console.log(items.lenght);
 	});
     }
 });
