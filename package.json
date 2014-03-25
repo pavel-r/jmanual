@@ -10,8 +10,7 @@
     "express": "~3.4.x",
     "grunt": "~0.4.1",
     "grunt-contrib-jst": "~0.5.0",
-    "pg": "*"
-
+    "mongodb": "*"
   },
   "engines": {
     "node": "0.10.x",

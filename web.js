@@ -1,6 +1,6 @@
 var fs = require('fs');
 var express = require('express');
-var pg = require('pg');
+var mongo = require('mongodb');
 var app = express();
 app.use(express.logger());
 app.use(express.bodyParser());
@@ -10,17 +10,17 @@ app.use('/admin',express.static('admin'));
 app.use('/client',express.static('client'));
 
 //connect to db
-var conString = "postgres://aomuzuzlcwkdxy:n-n0Ip-YoA2o942Ja-z49odhWC@ec2-54-204-37-113.compute-1.amazonaws.com:5432/dcg5cfm76mef41";
-var dbClient = new pg.Client(conString);
-dbClient.connect();
+var conString = process.env.MONGOLAB_URI || 'mongodb://localhost/mydb';
+var db = mongo.Db.connect(conString);
 
-var authFunc = function(username, password){
-    var query = dbClient.query('SELECT password FROM users WHERE email = $1', [username]);
-    query.on('row', function(row){
-	console.log(row);
-    });
-    //query.execute();
-    return true;
+var authFunc = function(email, password){
+    var user = db.users.find({ email : email, password : password});
+    console.log(user);
+    if(user){
+	return true;
+    } else {
+	retrun false;
+    }
 };
 
 app.get('/', function (request, response) {
