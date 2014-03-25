@@ -23,9 +23,7 @@ MongoClient.connect(conString, conOptions, function(err, db){
 });
 
 var authFunc = function(email, password){
-
-//  var user = db.users.find({ email : email, password : password});
-    var user = null;
+    var user = db.collection("users").find({ email : email, password : password});
     console.log(user);
     if(user){
 	return true;
