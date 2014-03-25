@@ -12,10 +12,14 @@ app.use('/client',express.static('client'));
 //connect to db
 var conString = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/mydb';
 console.log(conString);
-var db = mongo.Db.connect(conString);
+mongo.Db.connect(conString, function(err, db){
+    
+});
 
 var authFunc = function(email, password){
-    var user = db.users.find({ email : email, password : password});
+
+//  var user = db.users.find({ email : email, password : password});
+    var user = null;
     console.log(user);
     if(user){
 	return true;
