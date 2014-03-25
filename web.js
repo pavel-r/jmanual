@@ -1,6 +1,6 @@
 var fs = require('fs');
 var express = require('express');
-var mongo = require('mongodb');
+var MongoClient = require('mongodb').MongoClient;
 var app = express();
 app.use(express.logger());
 app.use(express.bodyParser());
@@ -11,9 +11,16 @@ app.use('/client',express.static('client'));
 
 //connect to db
 var conString = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/mydb';
+var conOptions = {server: {auto_reconnect:true}};
 console.log(conString);
-var db = new mongo.Db(conString);
-db.open(conString, function(){});
+var p_db = null;
+MongoClient.connect(conString, conOptions, function(err, db){
+    if(err){
+	console.log(err);
+    } else {
+	p_db = db;
+    }
+});
 
 var authFunc = function(email, password){
 
