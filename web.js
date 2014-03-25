@@ -19,7 +19,7 @@ var authFunc = function(email, password){
     if(user){
 	return true;
     } else {
-	retrun false;
+	return false;
     }
 };
 
