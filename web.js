@@ -12,9 +12,8 @@ app.use('/client',express.static('client'));
 //connect to db
 var conString = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/mydb';
 console.log(conString);
-mongo.Db.connect(conString, function(err, db){
-    
-});
+var db = new mongo.Db(conString);
+db.open(conString, function(){});
 
 var authFunc = function(email, password){
 
