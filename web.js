@@ -18,12 +18,17 @@ MongoClient.connect(conString, conOptions, function(err, db){
     if(err){
 	console.log(err);
     } else {
+	console.log('Connected to DB!');
 	p_db = db;
+	p_db.collection('users').find(function(err, item){
+	    console.log(item);
+	});
     }
 });
 
 var authFunc = function(email, password){
-    var user = p_db.collection("users").findOne();
+//    var user = p_db.collection("users").findOne();
+    var user = null;
     if(user){
 	console.log(user);
 	return true;
