@@ -21,6 +21,7 @@ MongoClient.connect(conString, conOptions, function(err, db){
 	console.log('Connected to DB!');
 	p_db = db;
 	p_db.collection('users').find().toArray(function(err, items){
+	    console.log(items);
 	    console.log(items.lenght);
 	});
     }
