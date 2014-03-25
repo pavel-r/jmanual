@@ -10,7 +10,8 @@ app.use('/admin',express.static('admin'));
 app.use('/client',express.static('client'));
 
 //connect to db
-var conString = process.env.MONGOLAB_URI || 'mongodb://localhost/mydb';
+var conString = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/mydb';
+console.log(conString);
 var db = mongo.Db.connect(conString);
 
 var authFunc = function(email, password){
