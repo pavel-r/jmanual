@@ -129,10 +129,10 @@ function closeTip(){
 			"click #loadModelBtn" : "loadModel"
 		},
 		initialize: function() {
+			this.render();
 			tipEditView = new TipEditView;
 			tipBubbleView = new TipBubbleView;
 			lessonView = new LessonView;
-			this.render();
 			lessonView.render();	
 		},
 		render: function(){
