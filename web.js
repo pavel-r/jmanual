@@ -10,6 +10,7 @@ app.use(express.session({secret: '12345qwerty', key: 'sid'}));
 app.use('/admin',express.static('admin'));
 app.use('/client',express.static('client'));
 
+var domain = "//54.186.137.81:5000";
 //connect to db
 var conString = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://heroku_app23023408:g45snehu57kfpam45uc3icn0a8@ds045907.mongolab.com:45907/heroku_app23023408';
 var conOptions = {server: {auto_reconnect:true}};
@@ -23,6 +24,9 @@ MongoClient.connect(conString, conOptions, function(err, db){
 	p_db = db;
     }
 });
+
+//MAIN
+//////////////////////////////////////////////////////////
 
 app.get('/', function (request, response) {
     if(request.session.username){
@@ -79,6 +83,35 @@ app.post('/', function (request, response) {
 			response.send(content.toString());
 		}
     });
+});
+
+//API
+//////////////////////////////////////////////////////////
+
+app.get('/:userid/admin/main.js', function (request, response) {
+	var userId = request.params.userid;
+    p_db.collection('users').findOne({_id:ObjectID(userId)},function(err, user){
+		if(!user) response.send("");
+		var content = fs.readFileSync('admin/main.js');
+		var contentStr = content.toString();
+		contentStr = contentStr.replace('@userId@', userId);
+		contentStr = contentStr.replace('@domain@', domain);
+		response.send(contentStr);
+		console.log('Request processed');
+	});    
+});
+
+app.get('/:userid/client/main.js', function (request, response) {
+	var userId = request.params.userid;
+    p_db.collection('users').findOne({_id:ObjectID(userId)},function(err, user){
+		if(!user) response.send("");
+		var content = fs.readFileSync('client/main.js');
+		var contentStr = content.toString();
+		contentStr = contentStr.replace('@userId@', userId);
+		contentStr = contentStr.replace('@domain@', domain);
+		response.send(contentStr);
+		console.log('Request processed');
+	});    
 });
 
 app.post('/cors/:id', function (request, response) {

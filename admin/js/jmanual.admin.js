@@ -4,8 +4,8 @@ function closeTip(){
 
 (function(){
 
-	var domain = "//54.186.137.81:5000";
-	var userID = "5331b155e4b03d6e48712e7f";
+	var domain = window["JManual.Domain"]; //"//54.186.137.81:5000";
+	var userID = window['JManual.UserId'];//"5331b155e4b03d6e48712e7f";
 
 	var Tip = Backbone.Model.extend({
 		defaults: function(){
