@@ -128,13 +128,14 @@ function closeTip(){
 		},
 		initialize: function() {
 			var url = domain + "/cors/" + userID;
+			var that = this;
 		    $.ajax({
 				url: url,
 				type: "GET",
 				crossDomain: true,
 				dataType: "json",
-				success: function (response) {
-					this.render();
+				success: function (data) {
+					that.render();
 					tipEditView = new TipEditView;
 					tipBubbleView = new TipBubbleView;
 					lessonView = new LessonView;

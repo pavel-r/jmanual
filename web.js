@@ -93,7 +93,7 @@ app.post('/cors/:id', function (request, response) {
 		p_db.collection('users').update({_id : ObjectID(userId)}, {$set: {jsondata:tipdata}}, function(err, result){
 			console.log(result + " users updated.");
 			response.setHeader("Access-Control-Allow-Origin", "*");
-			response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+			response.setHeader("Access-Control-Allow-Methods", "POST");
 			response.send("[]");
 			console.log('CORS POST Request processed');
 		});
@@ -104,7 +104,7 @@ app.get('/cors/:id', function (request, response) {
 		var userId = request.params.id;
 		p_db.collection('users').findOne({_id : ObjectID(userId)}, function(err, user){
 			response.setHeader("Access-Control-Allow-Origin", "*");
-			response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+			response.setHeader("Access-Control-Allow-Methods", "GET");
 			if(user){
 				response.send(user.jsondata);
 			} else {
