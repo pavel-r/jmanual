@@ -171,8 +171,12 @@ function closeTip(){
 				crossDomain: true,
 				dataType: "json",
 				success: function (data) {
-					lesson.reset(data);
-					lesson.sync();
+					lesson.each(function(model){
+						model.destroy();
+					});
+					$(data).each(function(item){
+						lesson.create(item);
+					});
 					lessonView.render();
 				},
 				error: function (xhr, status) {
