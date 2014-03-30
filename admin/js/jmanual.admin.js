@@ -22,6 +22,7 @@ function closeTip(){
 	});
 	
 	var lesson = new Lesson;
+	lesson.fetch();
 	
 	var LessonView = Backbone.View.extend({
 		el : "#listPanel",
@@ -124,33 +125,22 @@ function closeTip(){
 		template: window['JST']['admin/templates/admin-panel-template.html'],
 		events: {
 			"click #newTipBtn" : "openTipDetails",
-			"click #saveModelBtn" : "saveModel"			
+			"click #saveModelBtn" : "saveModel",	
+			"click #loadModelBtn" : "loadModel"
 		},
 		initialize: function() {
-			var url = domain + "/cors/" + userID;
-			var that = this;
-		    $.ajax({
-				url: url,
-				type: "GET",
-				crossDomain: true,
-				dataType: "json",
-				success: function (data) {
-					that.render();
-					tipEditView = new TipEditView;
-					tipBubbleView = new TipBubbleView;
-					lessonView = new LessonView;
-					lessonView.render();
-				},
-				error: function (xhr, status) {
-					alert("error");
-				}
-		    });
+			tipEditView = new TipEditView;
+			tipBubbleView = new TipBubbleView;
+			lessonView = new LessonView;
+			this.render();
+			lessonView.render();	
 		},
 		render: function(){
 			this.$el.append(this.template());
 			$('#adminPanel').dialog();
 			$('#newTipBtn').button();
 			$('#saveModelBtn').button();
+			$('#loadModelBtn').button();
 		},
 		openTipDetails : function(){
 			tipEditView.render({});
@@ -170,8 +160,24 @@ function closeTip(){
 			error: function (xhr, status) {
 			    alert("error");
 			}
+		    }); 
+		},
+		loadModel: function() {
+			var url = domain + "/cors/" + userID;
+			var that = this;
+			$.ajax({
+				url: url,
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+				success: function (data) {
+					lesson.reset(data);
+					lessonView.render();
+				},
+				error: function (xhr, status) {
+					alert("error");
+				}
 		    });
-		    
 		}
 	});
     
