@@ -171,13 +171,12 @@ function closeTip(){
 				crossDomain: true,
 				dataType: "json",
 				success: function (data) {
-					lesson.each(function(model){
+					$(lesson.models).each(function(idx, model){
 						model.destroy();
 					});
-					$(data).each(function(item){
+					$(data).each(function(idx, item){
 						lesson.create(item);
 					});
-					lessonView.render();
 				},
 				error: function (xhr, status) {
 					alert("error");
