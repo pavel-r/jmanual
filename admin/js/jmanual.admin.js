@@ -4,6 +4,9 @@ function closeTip(){
 
 (function(){
 
+	var domain = "//ancient-gorge-2130.herokuapp.com";
+	var userID = "5331b155e4b03d6e48712e7f";
+
 	var Tip = Backbone.Model.extend({
 		defaults: function(){
 			return {
@@ -19,7 +22,6 @@ function closeTip(){
 	});
 	
 	var lesson = new Lesson;
-	lesson.fetch();
 	
 	var LessonView = Backbone.View.extend({
 		el : "#listPanel",
@@ -122,14 +124,26 @@ function closeTip(){
 		template: window['JST']['admin/templates/admin-panel-template.html'],
 		events: {
 			"click #newTipBtn" : "openTipDetails",
-			"click #saveModelBtn" : "saveModel"
+			"click #saveModelBtn" : "saveModel"			
 		},
 		initialize: function() {
-			this.render();
-			tipEditView = new TipEditView;
-			tipBubbleView = new TipBubbleView;
-			lessonView = new LessonView;
-			lessonView.render();
+			var url = domain + "/cors/" + userID;
+		    $.ajax({
+				url: url,
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+				success: function (response) {
+					this.render();
+					tipEditView = new TipEditView;
+					tipBubbleView = new TipBubbleView;
+					lessonView = new LessonView;
+					lessonView.render();
+				},
+				error: function (xhr, status) {
+					alert("error");
+				}
+		    });
 		},
 		render: function(){
 			this.$el.append(this.template());
@@ -142,23 +156,7 @@ function closeTip(){
 			tipBubbleView.hide();
 		},
 		saveModel: function() {
-		    //alert(JSON.stringify(lesson));
-		    var url = "//ancient-gorge-2130.herokuapp.com/cors";
-		    /*
-		    var xhr = createCORSRequest('POST',url);
-		    if(!xhr){
-			alert('CORS not supported');
-			return;
-		    }
-		    xhr.onload = function(){
-			alert('success');
-		    }
-		    xhr.onerror = function(){
-			alert('error');
-		    }
-		    xhr.send("tipdata=test");
-		    */
-		    
+		    var url = domain + "/cors/" + userID;
 		    $.ajax({
 			url: url,
 			type: "POST",
@@ -184,7 +182,7 @@ function closeTip(){
 		//load css files
 		var STYLES = [         // the css filenames
 			"//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css",
-			"//ancient-gorge-2130.herokuapp.com/admin/css/jmanual.admin.css"
+			 domain + "/admin/css/jmanual.admin.css"
 		];
 		var html = [];
 		for (var i = 0; i < STYLES.length; i++) {
