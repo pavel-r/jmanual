@@ -172,6 +172,7 @@ function closeTip(){
 				dataType: "json",
 				success: function (data) {
 					lesson.reset(data);
+					lesson.sync();
 					lessonView.render();
 				},
 				error: function (xhr, status) {
