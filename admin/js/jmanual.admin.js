@@ -171,7 +171,7 @@ function closeTip(){
 				crossDomain: true,
 				dataType: "json",
 				success: function (data) {
-					lesson.reset(data);
+					//lesson.reset();
 					lesson.sync();
 					lessonView.render();
 				},
