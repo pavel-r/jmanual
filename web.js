@@ -88,6 +88,7 @@ app.post('/cors', function (request, response) {
 });
 
 var port = process.env.PORT || 5000;
+
 app.listen(port, function(){
-    console.log('Server started');
+    console.log('Server started on port ' + port);
 });
