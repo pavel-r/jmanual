@@ -1,5 +1,5 @@
 (function() {
-    var domain = "//ancient-gorge-2130.herokuapp.com";
+    var domain = "//54.186.137.81:5000";
 	var SCRIPTS = [         // the script filenames, in dependency order
         "//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js",
         "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js",
