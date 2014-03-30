@@ -4,7 +4,7 @@ function closeTip(){
 
 (function(){
 
-	var domain = "//ancient-gorge-2130.herokuapp.com";
+	var domain = "//54.186.137.81:5000";
 	var userID = "5331b155e4b03d6e48712e7f";
 
 	var Tip = Backbone.Model.extend({

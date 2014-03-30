@@ -60,6 +60,27 @@ app.post('/', function (request, response) {
     });
 });
 
+app.post('/', function (request, response) {
+    var username = request.body.email;
+    var password = request.body.password;
+    console.log('Username : ' + username);
+    console.log('Password : ' + password);
+    p_db.collection('users').findOne({email : username, password : password}, function(err, user){
+        console.log(user);
+		if(user){
+			request.session.username = username;
+			var content = fs.readFileSync('index.loggedin.html');
+			var contentStr = content.toString();
+			contentStr = contentStr.replace('@user@', request.session.username);
+			contentStr = contentStr.replace('@sid@', request.session.sid);
+			response.send(contentStr);
+		} else {
+			var content = fs.readFileSync('index.html');
+			response.send(content.toString());
+		}
+    });
+});
+
 app.post('/cors/:id', function (request, response) {
     if(request.body){
 		var tipdata = request.body.tipdata;
@@ -77,6 +98,20 @@ app.post('/cors/:id', function (request, response) {
 			console.log('CORS POST Request processed');
 		});
     }
+});
+
+app.get('/cors/:id', function (request, response) {
+		var userId = request.params.id;
+		p_db.collection('users').findOne({_id : ObjectID(userId)}, function(err, user){
+			response.setHeader("Access-Control-Allow-Origin", "*");
+			response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+			if(user){
+				response.send(user.jsondata);
+			} else {
+				response.send("[]");
+			}
+			console.log('CORS GET Request processed');
+		});
 });
 
 var port = process.env.PORT || 5000;
