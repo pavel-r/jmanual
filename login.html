@@ -12,11 +12,14 @@
 	
 </head>
 <body>
-	<div style="color: #F3961C; width: 100%; font-size: 40px; margin-top: 50px;">
-		<h3>jManual</h3>
-	</div>
-	<div style="position: absolute; right: 20px; top: 0px; padding: 5px; background: #F3961C;">
-		<a href="/mypage">My page</a>
-	</div>
+	<form method="post" action="/login">
+		<div id="loginBox" style="width:500px; margin: 0 auto;">
+			<label for="email">Email</label> 
+			<input type="text" id="email" name="email"/>
+			<label for="password">Password</label>
+			<input type="password" id="password" name="password"/>
+			<input type="submit" value="Login"/>
+		</div>
+	</form>
 </body>
 </html>

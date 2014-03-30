@@ -29,42 +29,31 @@ MongoClient.connect(conString, conOptions, function(err, db){
 //////////////////////////////////////////////////////////
 
 app.get('/', function (request, response) {
-    if(request.session.username){
-	var content = fs.readFileSync('index.loggedin.html');
-	var contentStr = content.toString();
-	contentStr = contentStr.replace('@user@', request.session.username);
-	contentStr = contentStr.replace('@sid@', request.session.sid);
-	console.log(request.sessionID);
-	response.send(contentStr);
-    } else {
 	var content = fs.readFileSync('index.html');
 	response.send(content.toString());
+    console.log('Request processed');
+});
+
+app.get('/mypage', function (request, response) {
+    if(request.session.username){
+		var content = fs.readFileSync('mypage.html');
+		var contentStr = content.toString();
+		contentStr = contentStr.replace('@user@', request.session.username);
+		contentStr = contentStr.replace('@sid@', request.sessionID);
+		response.send(contentStr);
+    } else {
+		response.redirect('../login');
     }
     console.log('Request processed');
 });
 
-app.post('/', function (request, response) {
-    var username = request.body.email;
-    var password = request.body.password;
-    console.log('Username : ' + username);
-    console.log('Password : ' + password);
-    p_db.collection('users').findOne({email : username, password : password}, function(err, user){
-        console.log(user);
-		if(user){
-			request.session.username = username;
-			var content = fs.readFileSync('index.loggedin.html');
-			var contentStr = content.toString();
-			contentStr = contentStr.replace('@user@', request.session.username);
-			contentStr = contentStr.replace('@sid@', request.session.sid);
-			response.send(contentStr);
-		} else {
-			var content = fs.readFileSync('index.html');
-			response.send(content.toString());
-		}
-    });
+app.get('/login', function(request, response){
+	var content = fs.readFileSync('login.html');
+	response.send(content.toString());
+    console.log('Request processed');
 });
 
-app.post('/', function (request, response) {
+app.post('/login', function (request, response) {
     var username = request.body.email;
     var password = request.body.password;
     console.log('Username : ' + username);
@@ -73,14 +62,10 @@ app.post('/', function (request, response) {
         console.log(user);
 		if(user){
 			request.session.username = username;
-			var content = fs.readFileSync('index.loggedin.html');
-			var contentStr = content.toString();
-			contentStr = contentStr.replace('@user@', request.session.username);
-			contentStr = contentStr.replace('@sid@', request.session.sid);
-			response.send(contentStr);
+			request.session.userid = user._id;
+			response.redirect('../mypage');
 		} else {
-			var content = fs.readFileSync('index.html');
-			response.send(content.toString());
+			response.redirect('../login');
 		}
     });
 });
@@ -118,9 +103,6 @@ app.post('/cors/:id', function (request, response) {
     if(request.body){
 		var tipdata = request.body.tipdata;
 		console.log(request.body.tipdata);
-		//var jscontent = fs.readFileSync('jmanual.client.template.js').toString();
-		//check JSON validity
-		//jscontent = jscontent.replace("@data@", request.body.tipdata);
 		//fs.writeFileSync('client/js/jmanual.client.js', jscontent);
 		var userId = request.params.id;
 		p_db.collection('users').update({_id : ObjectID(userId)}, {$set: {jsondata:tipdata}}, function(err, result){
