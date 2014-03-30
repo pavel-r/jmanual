@@ -4,7 +4,10 @@ var closeTip;
 
 (function(){
 
-    var tips = [];
+	var domain = window["JManual.Domain"]; //"//54.186.137.81:5000";
+	var userID = window['JManual.UserId'];//"5331b155e4b03d6e48712e7f";
+    var tips = null;
+	
     function setCookie(cname,cvalue,exdays)
     {
 	var d = new Date();
@@ -50,7 +53,7 @@ var closeTip;
         if (nextTipId == null) {
             nextTipId = 0;
         }
-        if(nextTipId >= tips.lenght){
+        if(nextTipId >= tips.length){
             alert('End of training');
             setCookie("jTipId", 0, 365);  
 	    return;
@@ -60,25 +63,32 @@ var closeTip;
         }
     }
 
+
     function showTip(tip) {
 	if (tip == null){
 	    return false;
 	}
-	var firstFound = getElem(tip.selector)[0];
-	
-	if(firstFound == null){
-	    alert("Element not found");
-	    return false;
-	}
+	var selector = tip.selector;
+	if(selector == ""){
+	    $("#tipContainer").html(theTipTemplate({ left: "50%", top: "50%", msg: tip.msg, cssclass: "notriangle-msg"}));
+	    return true;
+	} else {
+	    var firstFound = getElem(selector)[0];
+	    
+	    if(!firstFound){
+		$("#tipContainer").html(theTipTemplate({ left: "50%", top: "50%", msg: "Cannot show next tip. Make sure you did all previous steps correctly", cssclass: "alert-msg"}));
+		return false;
+	    }
 
-	var el = firstFound.elem;
-	var position = (el == null ? null : $(el).offset());
-	position.top += firstFound.offs.top;
-	position.left += firstFound.offs.left;
-	position.top += 15;
-	var tipBox = theTipTemplate({ left: position.left, top: position.top, msg: tip.msg });
-	$("#tipContainer").html(tipBox);
-	return true;
+	    var el = firstFound.elem;
+	    var position = (el == null ? null : $(el).offset());
+	    position.top += firstFound.offs.top;
+	    position.left += firstFound.offs.left;
+	    position.top += 15;
+	    var tipBox = theTipTemplate({ left: (position.left + "px"), top: (position.top + "px"), msg: tip.msg, cssclass: "triangle-isosceles top"});
+	    $("#tipContainer").html(tipBox);
+	    return true;
+	}
     }
 
     function showClientPanel() {
@@ -90,14 +100,11 @@ var closeTip;
 		$('body').append(clientPanelTemplate());
     }
 
-	var clientPanelTemplate;
-    var theTipTemplate;
-	
     $(window).load(function () {
 		//load css files
 		var STYLES = [         // the css filenames
 			"//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css",
-			"//ancient-gorge-2130.herokuapp.com/admin/css/jmanual.admin.css"
+			domain + "/admin/css/jmanual.admin.css"
 		];
 		var html = [];
 		for (var i = 0; i < STYLES.length; i++) {
@@ -108,7 +115,23 @@ var closeTip;
 		$('head').append(html.join(''));
 		
 		//launch client app
-		showClientPanel();
+		var url = domain + "/cors/" + userID;
+		$.ajax({
+				url: url,
+				type: "GET",
+				crossDomain: true,
+				dataType: "json",
+				success: function (data) {
+					tips = data;
+					showClientPanel();
+				},
+				error: function (xhr, status) {
+					alert("error");
+				}
+		});
     });
+
+    var clientPanelTemplate;
+    var theTipTemplate;
 
 })();
