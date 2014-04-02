@@ -10,7 +10,7 @@ app.use(express.session({secret: '12345qwerty', key: 'sid'}));
 app.use('/admin',express.static('admin'));
 app.use('/client',express.static('client'));
 
-var domain = "//54.186.137.81:5000";
+var domain = //ancient-gorge-2130.herokuapp.com; //"//54.186.137.81:5000";
 //connect to db
 var conString = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://heroku_app23023408:g45snehu57kfpam45uc3icn0a8@ds045907.mongolab.com:45907/heroku_app23023408';
 var conOptions = {server: {auto_reconnect:true}};
