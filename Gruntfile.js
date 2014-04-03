@@ -33,14 +33,22 @@ module.exports = function(grunt) {
                     "admin/templates/templates.js": ["admin/templates/*.html"]
                 }
             }
-        }
+        },
+	uglify: {		
+	   build: {
+		src: 'admin/js/jmanual.admin.js',
+		dest: 'build/js/jmanual.admin.min.js'
+	   }
+	}
+	
     });
 
     // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib-jst');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
 
     // Default task.
-    grunt.registerTask('default', ['jst']);
+    grunt.registerTask('default', ['jst','uglify']);
 
 };
 
