@@ -30,14 +30,20 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    "admin/templates/templates.js": ["admin/templates/*.html"]
+                    "admin/js/templates.js": ["admin/templates/*.html"]
                 }
             }
         },
+	concat: {
+	    dist: {
+		src : ['admin/js/*.js'],
+		dest : 'build/jmanual-admin.js'
+	    }
+	},
 	uglify: {		
 	   build: {
-		src: 'admin/js/jmanual.admin.js',
-		dest: 'build/js/jmanual.admin.min.js'
+		src: 'build/jmanual-admin.js',
+		dest: 'build/jmanual-admin.min.js'
 	   }
 	}
 	
@@ -46,9 +52,10 @@ module.exports = function(grunt) {
     // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib-jst');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-concat');
 
     // Default task.
-    grunt.registerTask('default', ['jst','uglify']);
+    grunt.registerTask('default', ['jst', 'concat', 'uglify']);
 
 };
 
