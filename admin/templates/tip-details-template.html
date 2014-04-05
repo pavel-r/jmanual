@@ -1,18 +1,18 @@
-<div style="border: 1px solid #AAAAAA; margin: 15px 3px 3px; padding: 0.4em;">
-	<form id="tipEditForm">
-				<span><%=tip ? "Edit tip" : "New tip"%></span>
-				<div>Selector:</div>
-				<input type="text" id="selector" name="selector" style="width: 100%;" value="<%=tip ? tip.get("selector") : ""%>"/><br/>
-				<div>Message:</div>
-				<textarea id="message" name="message" style="width: 100%;"><%=tip ? tip.get("msg") : ""%></textarea><br/>
-				<div>Do after:</div>
-				<select id="doAfter" name="doAfter"> 
-					<option value="nextTip">Show next tip</option>
-					<option value="close">Close</option>
-				</select>
-				<a class="hrefButton" id="saveBtn" href=# data-tip-id="<%=tip.id%>">Save</a>
-				<% if(tip) { %>
-				<a class="hrefButton" id="deleteBtn" href=# data-tip-id="<%=tip.id%>">Delete</a>
-				<% };%>
-	</form>
-</div>
+<form id="tipEditForm">
+	<div style="border: 1px solid #AAAAAA; margin: 15px 3px 3px; padding: 0.4em;">
+					<span><%=tip ? "Edit tip" : "New tip"%></span>
+					<div>Selector:</div>
+					<input type="text" id="selector" name="selector" style="width: 100%;" value="<%=tip ? tip.get("selector") : ""%>"/><br/>
+					<div>Message:</div>
+					<textarea id="message" name="message" style="width: 100%;"><%=tip ? tip.get("msg") : ""%></textarea><br/>
+					<div>Do after:</div>
+					<select id="doAfter" name="doAfter">
+						<option value="nextTip">Show next tip</option>
+						<option value="close">Close</option>
+					</select>
+					<a class="hrefButton" id="saveBtn" href=# data-tip-id="<%=tip.id%>">Save</a>
+					<% if(tip) { %>
+					<a class="hrefButton" id="deleteBtn" href=# data-tip-id="<%=tip.id%>">Delete</a>
+					<% };%>
+	</div>
+</form>
