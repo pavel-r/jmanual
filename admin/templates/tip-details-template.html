@@ -4,6 +4,7 @@
 				<input type="text" id="selector" style="width: 100%;" value="<%=tip ? tip.get("selector") : ""%>"/><br/>
 				<div>Message:</div>
 				<textarea id="message" style="width: 100%;"><%=tip ? tip.get("msg") : ""%></textarea><br/>
+				<div>Do after:</div>
 				<a class="hrefButton" id="saveBtn" href=# data-tip-id="<%=tip.id%>">Save</a>
 				<% if(tip) { %>
 				<a class="hrefButton" id="deleteBtn" href=# data-tip-id="<%=tip.id%>">Delete</a>
