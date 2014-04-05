@@ -1,3 +1,6 @@
+if (!window.Jmanual) {
+    window.Jmanual = {};
+}
 (function(){
 
 	var domain = window["JManual.Domain"]; //"//54.186.137.81:5000";
