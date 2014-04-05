@@ -5,8 +5,7 @@ this["JManual.Domain"] = "@domain@";
     var SCRIPTS = [         // the script filenames, in dependency order
         "//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js",
         "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js",
-        "//code.jquery.com/ui/1.10.4/jquery-ui.js",
-        window["JManual.Domain"] + "/admin/templates/templates.js",
+        window["JManual.Domain"] + "/admin/js/templates.js",
         window["JManual.Domain"] + "/admin/js/jmanual.utils.js",
         window["JManual.Domain"] + "/client/js/jmanual.client.js"
     ];
