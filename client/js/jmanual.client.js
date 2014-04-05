@@ -7,15 +7,14 @@
 	var clientPanelTemplate;
     var theTipTemplate;
 	
-	Jmanual.Methods = {};
-	Jmanual.Methods.beginTraining = function(){
+	Jmanual.beginTraining = function(){
 			Jmanual.Utils.setCookie("jTipId", -1, 365);
 			Jmanual.Methods.nextTip();
 	};
 
-	Jmanual.Methods.closeTip = function(){
+	Jmanual.closeTip = function(){
 			$("#tipContainer").html("");
-			var tipId = 1 * Jmanual.Utils.getCookie("jTipId") || -1;
+			var tipId = 1 * (Jmanual.Utils.getCookie("jTipId") || -1 );
 			var tip = tips[tipId];
 			if(tipId + 1 >= tips.length){
 				alert('End of training');
@@ -27,9 +26,9 @@
 			}
 	};
 
-	Jmanual.Methods.nextTip = function () {
+	Jmanual.nextTip = function () {
 			$("#tipContainer").html("");
-			var tipId = 1 * Jmanual.Utils.getCookie("jTipId") || -1;
+			var tipId = 1 * (Jmanual.Utils.getCookie("jTipId") || -1 );
 			//if (tipId == null) {
 			//	tipId = 0;
 			//}

@@ -3,19 +3,9 @@
 	var domain = window["JManual.Domain"]; //"//54.186.137.81:5000";
 	var userID = window['JManual.UserId'];//"5331b155e4b03d6e48712e7f";
 
-	Jmanual.Methods = function(){
-		this.beginTraining = function(){
-			//stub
-		};
-
-		this.closeTip = function(){
-			//stub
-		};
-
-		this.nextTip = function () {
-			//stub
-		};
-	};
+	Jmanual.beginTraining = function(){};
+	Jmanual.closeTip = function(){};
+	Jmanual.nextTip = function(){};
 	
 	var Tip = Backbone.Model.extend({
 		defaults: function(){
