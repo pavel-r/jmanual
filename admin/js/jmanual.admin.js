@@ -7,11 +7,28 @@
 	Jmanual.closeTip = function(){};
 	Jmanual.nextTip = function(){};
 	
+	$.fn.serializeObject = function() {
+		var o = {};
+		var a = this.serializeArray();
+		$.each(a, function() {
+			if (o[this.name] !== undefined) {
+				if (!o[this.name].push) {
+					o[this.name] = [o[this.name]];
+				}
+				o[this.name].push(this.value || '');
+			} else {
+				o[this.name] = this.value || '';
+			}
+		});
+		return o;
+	};
+	
 	var Tip = Backbone.Model.extend({
 		defaults: function(){
 			return {
 				selector: "",
-				msg: ""
+				msg: "",
+				doAfter: "close"
 			};
 		}
 	});
@@ -72,10 +89,11 @@
 		},
 		saveTip : function(e){
 			var id = $(e.currentTarget).attr("data-tip-id");
+			var user = $(e.currentTarget).serializeObject(); //this.serialize();
 			if(id){
-				lesson.get(id).save(this.serialize());
+				lesson.get(id).save(user);
 			} else {
-				lesson.create(this.serialize());
+				lesson.create(user);
 			}
 			this.hide();
 		},
