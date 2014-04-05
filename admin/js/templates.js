@@ -43,7 +43,7 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<div style="border: 1px solid #AAAAAA; margin: 15px 3px 3px; padding: 0.4em;">\n\t\t\t\t<span>' +
+__p += '<div style="border: 1px solid #AAAAAA; margin: 15px 3px 3px; padding: 0.4em;">\n\t<form id="tipEditForm">\n\t\t\t\t<span>' +
 ((__t = (tip ? "Edit tip" : "New tip")) == null ? '' : __t) +
 '</span>\n\t\t\t\t<div>Selector:</div>\n\t\t\t\t<input type="text" id="selector" name="selector" style="width: 100%;" value="' +
 ((__t = (tip ? tip.get("selector") : "")) == null ? '' : __t) +
@@ -57,7 +57,7 @@ __p += '\n\t\t\t\t<a class="hrefButton" id="deleteBtn" href=# data-tip-id="' +
 ((__t = (tip.id)) == null ? '' : __t) +
 '">Delete</a>\n\t\t\t\t';
  };;
-__p += '\n</div>\n';
+__p += '\n<<<<<<< HEAD\n</div>\n=======\n\t</form>\n</div>\n>>>>>>> e9d0871a36a59b5473cf3b7a721322a1224bf2c1\n';
 
 }
 return __p

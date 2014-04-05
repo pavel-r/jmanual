@@ -1,4 +1,5 @@
 <div style="border: 1px solid #AAAAAA; margin: 15px 3px 3px; padding: 0.4em;">
+	<form id="tipEditForm">
 				<span><%=tip ? "Edit tip" : "New tip"%></span>
 				<div>Selector:</div>
 				<input type="text" id="selector" name="selector" style="width: 100%;" value="<%=tip ? tip.get("selector") : ""%>"/><br/>
@@ -13,4 +14,9 @@
 				<% if(tip) { %>
 				<a class="hrefButton" id="deleteBtn" href=# data-tip-id="<%=tip.id%>">Delete</a>
 				<% };%>
+<<<<<<< HEAD
 </div>
+=======
+	</form>
+</div>
+>>>>>>> e9d0871a36a59b5473cf3b7a721322a1224bf2c1
