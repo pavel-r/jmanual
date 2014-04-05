@@ -89,4 +89,4 @@ Jmanual.Utils = function() {
 };
 
 //Utils should be singleton. Make singleton instance
-var Jmanual.Utils = new Jmanual.Utils();
+Jmanual.Utils = new Jmanual.Utils();
