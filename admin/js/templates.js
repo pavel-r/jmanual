@@ -57,7 +57,7 @@ __p += '\n\t\t\t\t<a class="hrefButton" id="deleteBtn" href=# data-tip-id="' +
 ((__t = (tip.id)) == null ? '' : __t) +
 '">Delete</a>\n\t\t\t\t';
  };;
-__p += '\n<<<<<<< HEAD\n</div>\n=======\n\t</form>\n</div>\n>>>>>>> e9d0871a36a59b5473cf3b7a721322a1224bf2c1\n';
+__p += '\n\t</form>\n</div>\n';
 
 }
 return __p
