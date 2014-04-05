@@ -11,7 +11,7 @@
 		this.beginTraining = function(){
 			Jmanual.Utils.setCookie("jTipId", -1, 365);
 			this.nextTip();
-		}
+		};
 
 		this.closeTip = function(){
 			$("#tipContainer").html("");
@@ -25,7 +25,7 @@
 			if(tip.trigger === 0){
 				this.nextTip();
 			}
-		}
+		};
 
 		this.nextTip = function () {
 			$("#tipContainer").html("");
@@ -42,8 +42,8 @@
 			if (showTip(tips[tipId])){
 				Jmanual.Utils.setCookie("jTipId", tipId, 365);
 			}
-		}
-	}
+		};
+	};
 
     function showTip(tip) {
 		if (tip == null){

@@ -1,7 +1,3 @@
-function closeTip(){
-	//just a stub
-}
-
 (function(){
 
 	var domain = window["JManual.Domain"]; //"//54.186.137.81:5000";
@@ -10,23 +6,23 @@ function closeTip(){
 	Jmanual.Methods = function(){
 		this.beginTraining = function(){
 			//stub
-		}
+		};
 
 		this.closeTip = function(){
 			//stub
-		}
+		};
 
 		this.nextTip = function () {
 			//stub
-		}
-	}
+		};
+	};
 	
 	var Tip = Backbone.Model.extend({
 		defaults: function(){
 			return {
 				selector: "",
 				msg: ""
-			}
+			};
 		}
 	});
 
@@ -35,7 +31,7 @@ function closeTip(){
 		localStorage: new Backbone.LocalStorage("jLesson")
 	});
 	
-	var lesson = new Lesson;
+	var lesson = new Lesson();
 	lesson.fetch();
 	
 	var LessonView = Backbone.View.extend({

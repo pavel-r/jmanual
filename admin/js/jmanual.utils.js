@@ -15,10 +15,10 @@ Jmanual.Utils = function() {
 	 *                          (optional - initializes with 0,0 if undefined) 
 	 * @return dims object above
 	 */
-	function computeFrameOffset = function(win, dims) {
+	function computeFrameOffset(win, dims) {
 		// initialize our result variable
 		if (typeof dims === 'undefined') {
-			var dims = { top: 0, left: 0 };
+			dims = { top: 0, left: 0 };
 		}
 
 		// find our <iframe> tag within our parent window
@@ -48,7 +48,7 @@ Jmanual.Utils = function() {
 
 	//Methods
 	
-	this.getElem = (selector, $root, elArray, offset) {
+	this.getElem = function(selector, $root, elArray, offset) {
 		if (!$root) $root = $(document);
 		if (!offset) offset = {left : 0, top : 0};
 		if (!elArray) elArray = [];
@@ -61,7 +61,7 @@ Jmanual.Utils = function() {
 		$root.find('iframe,frame').each(function() {
 			// Recursively call the function, setting "$root" to the frame's document
 			var frameOffset = computeFrameOffset(this.contentWindow);
-			getElem(selector, $(this).contents(), elArray, frameOffset);
+			this.getElem(selector, $(this).contents(), elArray, frameOffset);
 		});
 		return elArray;
 	};
