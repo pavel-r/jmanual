@@ -7,27 +7,27 @@
 	var clientPanelTemplate;
     var theTipTemplate;
 	
-	Jmanual.Methods = function(){
-		this.beginTraining = function(){
+	Jmanual.Methods = {};
+	Jmanual.Methods.beginTraining = function(){
 			Jmanual.Utils.setCookie("jTipId", -1, 365);
-			this.nextTip();
-		};
+			Jmanual.Methods.nextTip();
+	};
 
-		this.closeTip = function(){
+	Jmanual.Methods.closeTip = function(){
 			$("#tipContainer").html("");
-			var idx = 1 * Jmanual.Utils.getCookie("jTipId") || -1;
-			var tip = tips[idx];
+			var tipId = 1 * Jmanual.Utils.getCookie("jTipId") || -1;
+			var tip = tips[tipId];
 			if(tipId + 1 >= tips.length){
 				alert('End of training');
 				Jmanual.Utils.setCookie("jTipId", -1, 365);  
 				return;
 			}
 			if(tip.trigger === 0){
-				this.nextTip();
+				Jmanual.Methods.nextTip();
 			}
-		};
+	};
 
-		this.nextTip = function () {
+	Jmanual.Methods.nextTip = function () {
 			$("#tipContainer").html("");
 			var tipId = 1 * Jmanual.Utils.getCookie("jTipId") || -1;
 			//if (tipId == null) {
@@ -42,7 +42,6 @@
 			if (showTip(tips[tipId])){
 				Jmanual.Utils.setCookie("jTipId", tipId, 365);
 			}
-		};
 	};
 
     function showTip(tip) {
@@ -54,7 +53,7 @@
 			$("#tipContainer").html(theTipTemplate({ left: "50%", top: "50%", msg: tip.msg, cssclass: "notriangle-msg"}));
 			return true;
 		} else {
-			var firstFound = getElem(selector)[0];
+			var firstFound = Jmanual.Utils.getElem(selector)[0];
 			
 			if(!firstFound){
 			$("#tipContainer").html(theTipTemplate({ left: "50%", top: "50%", msg: "Cannot show next tip. Make sure you did all previous steps correctly", cssclass: "alert-msg"}));
