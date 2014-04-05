@@ -7,6 +7,20 @@ function closeTip(){
 	var domain = window["JManual.Domain"]; //"//54.186.137.81:5000";
 	var userID = window['JManual.UserId'];//"5331b155e4b03d6e48712e7f";
 
+	Jmanual.Methods = function(){
+		this.beginTraining = function(){
+			//stub
+		}
+
+		this.closeTip = function(){
+			//stub
+		}
+
+		this.nextTip = function () {
+			//stub
+		}
+	}
+	
 	var Tip = Backbone.Model.extend({
 		defaults: function(){
 			return {
@@ -94,31 +108,31 @@ function closeTip(){
 	});
 	
     var TipBubbleView = Backbone.View.extend({
-	el: "#tipContainer",
-	template: window['JST']['admin/templates/tip-bubble-template.html'],
-	render: function(options){
-	    this.hide();
-	    var tip = lesson.get(options.id);
-	    var selector = tip.get("selector");
-	    if(selector == ""){
-		this.$el.html(this.template({ left: "50%", top: "50%", msg: tip.get("msg"), cssclass: "notriangle-msg"}));
-	    } else {
-		var firstFound = getElem(selector)[0];
-		if(!firstFound){
-		    this.$el.html(this.template({ left: "50%", top: "50%", msg: "Cannot show next tip. Make sure you did all previous steps correctly", cssclass: "alert-msg"}));
-		    return false;
+		el: "#tipContainer",
+		template: window['JST']['admin/templates/tip-bubble-template.html'],
+		render: function(options){
+			this.hide();
+			var tip = lesson.get(options.id);
+			var selector = tip.get("selector");
+			if(selector == ""){
+				this.$el.html(this.template({ left: "50%", top: "50%", msg: tip.get("msg"), cssclass: "notriangle-msg"}));
+			} else {
+				var firstFound = Jmanual.Utils.getElem(selector)[0];
+				if(!firstFound){
+					this.$el.html(this.template({ left: "50%", top: "50%", msg: "Cannot show next tip. Make sure you did all previous steps correctly", cssclass: "alert-msg"}));
+					return false;
+				}
+				var el = firstFound.elem;
+				var position = (el == null ? null : $(el).offset());
+				position.top += firstFound.offs.top;
+				position.left += firstFound.offs.left;
+				position.top += 15;
+				this.$el.html(this.template({ left: (position.left + "px"), top: (position.top + "px"), msg: tip.get("msg"), cssclass: "triangle-isosceles top"}));
+			}
+		},
+		hide: function(){
+			this.$el.html("");
 		}
-		var el = firstFound.elem;
-		var position = (el == null ? null : $(el).offset());
-		position.top += firstFound.offs.top;
-		position.left += firstFound.offs.left;
-		position.top += 15;
-		this.$el.html(this.template({ left: (position.left + "px"), top: (position.top + "px"), msg: tip.get("msg"), cssclass: "triangle-isosceles top"}));
-	    }
-	},
-	hide: function(){
-	    this.$el.html("");
-	}
     });
 	
 	var AppView = Backbone.View.extend({
@@ -189,6 +203,7 @@ function closeTip(){
 	var tipEditView;
 	var lessonView;
 	var App;
+	
 	$(window).load(function () {
 		//load css files
 		var STYLES = [         // the css filenames
@@ -201,7 +216,7 @@ function closeTip(){
 			html.push(STYLES[i]);
 			html.push('" type="text/css" rel="stylesheet"></link>\n');
 		}
-	        $('head').append(html.join(''));
+	    $('head').append(html.join(''));
 
 		//launch the app
 		App = new AppView({el: 'body'});

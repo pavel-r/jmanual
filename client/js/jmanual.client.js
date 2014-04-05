@@ -1,94 +1,75 @@
-var nextTip;
-var beginTraining;
-var closeTip;
-
 (function(){
 
 	var domain = window["JManual.Domain"]; //"//54.186.137.81:5000";
 	var userID = window['JManual.UserId'];//"5331b155e4b03d6e48712e7f";
     var tips = null;
+
+	var clientPanelTemplate;
+    var theTipTemplate;
 	
-    function setCookie(cname,cvalue,exdays)
-    {
-	var d = new Date();
-	d.setTime(d.getTime()+(exdays*24*60*60*1000));
-	var expires = "expires="+d.toGMTString();
-	document.cookie = cname + "=" + cvalue + "; " + expires;
-    }
+	Jmanual.Methods = function(){
+		this.beginTraining = function(){
+			Jmanual.Utils.setCookie("jTipId", -1, 365);
+			this.nextTip();
+		}
 
-    function getCookie(cname)
-    {
-	var name = cname + "=";
-	var ca = document.cookie.split(';');
-	for(var i=0; i<ca.length; i++)
-	{
-	    var c = ca[i].trim();
-	    if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+		this.closeTip = function(){
+			$("#tipContainer").html("");
+			var idx = 1 * Jmanual.Utils.getCookie("jTipId") || -1;
+			var tip = tips[idx];
+			if(tipId + 1 >= tips.length){
+				alert('End of training');
+				Jmanual.Utils.setCookie("jTipId", -1, 365);  
+				return;
+			}
+			if(tip.trigger === 0){
+				this.nextTip();
+			}
+		}
+
+		this.nextTip = function () {
+			$("#tipContainer").html("");
+			var tipId = 1 * Jmanual.Utils.getCookie("jTipId") || -1;
+			//if (tipId == null) {
+			//	tipId = 0;
+			//}
+			tipId++;
+			if(tipId >= tips.length){
+				alert('End of training');
+				Jmanual.Utils.setCookie("jTipId", -1, 365);  
+				return;
+			}
+			if (showTip(tips[tipId])){
+				Jmanual.Utils.setCookie("jTipId", tipId, 365);
+			}
+		}
 	}
-	return "";
-    }
-
-    beginTraining = function(){
-	setCookie("jTipId", 0, 365);
-	nextTip();
-    }
-
-    closeTip = function(){
-        $("#tipContainer").html("");
-	var idx = 1 * getCookie("jTipId");
-	if(idx >= tips.length){
-	    alert('End of training');
-            setCookie("jTipId", 0, 365);  
-	    return;
-	}
-	var tip = tips[idx];
-	if(tip.trigger === 0){
-	    nextTip();
-	}
-    }
-
-    nextTip = function () {
-	$("#tipContainer").html("");
-        var nextTipId = 1 * getCookie("jTipId");
-        if (nextTipId == null) {
-            nextTipId = 0;
-        }
-        if(nextTipId >= tips.length){
-            alert('End of training');
-            setCookie("jTipId", 0, 365);  
-	    return;
-	}
-        if (showTip(tips[nextTipId])){
-            setCookie("jTipId", 1 + nextTipId, 365);
-        }
-    }
-
 
     function showTip(tip) {
-	if (tip == null){
-	    return false;
-	}
-	var selector = tip.selector;
-	if(selector == ""){
-	    $("#tipContainer").html(theTipTemplate({ left: "50%", top: "50%", msg: tip.msg, cssclass: "notriangle-msg"}));
-	    return true;
-	} else {
-	    var firstFound = getElem(selector)[0];
-	    
-	    if(!firstFound){
-		$("#tipContainer").html(theTipTemplate({ left: "50%", top: "50%", msg: "Cannot show next tip. Make sure you did all previous steps correctly", cssclass: "alert-msg"}));
-		return false;
-	    }
+		if (tip == null){
+			return false;
+		}
+		var selector = tip.selector;
+		if(selector == ""){
+			$("#tipContainer").html(theTipTemplate({ left: "50%", top: "50%", msg: tip.msg, cssclass: "notriangle-msg"}));
+			return true;
+		} else {
+			var firstFound = getElem(selector)[0];
+			
+			if(!firstFound){
+			$("#tipContainer").html(theTipTemplate({ left: "50%", top: "50%", msg: "Cannot show next tip. Make sure you did all previous steps correctly", cssclass: "alert-msg"}));
+			return false;
+			}
 
-	    var el = firstFound.elem;
-	    var position = (el == null ? null : $(el).offset());
-	    position.top += firstFound.offs.top;
-	    position.left += firstFound.offs.left;
-	    position.top += 15;
-	    var tipBox = theTipTemplate({ left: (position.left + "px"), top: (position.top + "px"), msg: tip.msg, cssclass: "triangle-isosceles top"});
-	    $("#tipContainer").html(tipBox);
-	    return true;
-	}
+			var el = firstFound.elem;
+			var position = (el == null ? null : $(el).offset());
+			position.top += firstFound.offs.top;
+			position.left += firstFound.offs.left;
+			position.top += 15;
+			var tipBox = theTipTemplate({ left: (position.left + "px"), top: (position.top + "px"), msg: tip.msg, cssclass: "triangle-isosceles top"});
+			$("#tipContainer").html(tipBox);
+			return true;
+		}
     }
 
     function showClientPanel() {
@@ -130,8 +111,5 @@ var closeTip;
 				}
 		});
     });
-
-    var clientPanelTemplate;
-    var theTipTemplate;
 
 })();
