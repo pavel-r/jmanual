@@ -89,7 +89,7 @@
 		},
 		saveTip : function(e){
 			var id = $(e.currentTarget).attr("data-tip-id");
-			var user = $el.serializeObject(); //this.serialize();
+			var user = $("#tipEditForm").serializeObject(); //this.serialize();
 			if(id){
 				lesson.get(id).save(user);
 			} else {
