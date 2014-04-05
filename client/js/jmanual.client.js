@@ -9,7 +9,7 @@
 	
 	Jmanual.beginTraining = function(){
 			Jmanual.Utils.setCookie("jTipId", -1, 365);
-			Jmanual.Methods.nextTip();
+			Jmanual.nextTip();
 	};
 
 	Jmanual.closeTip = function(){
@@ -21,8 +21,8 @@
 				Jmanual.Utils.setCookie("jTipId", -1, 365);  
 				return;
 			}
-			if(tip.trigger === 0){
-				Jmanual.Methods.nextTip();
+			if(tip.doAfter === 'nextTip'){
+				Jmanual.nextTip();
 			}
 	};
 
