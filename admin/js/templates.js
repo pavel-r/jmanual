@@ -45,9 +45,9 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 __p += '<div style="border: 1px solid #AAAAAA; margin: 15px 3px 3px; padding: 0.4em;">\n\t\t\t\t<span>' +
 ((__t = (tip ? "Edit tip" : "New tip")) == null ? '' : __t) +
-'</span>\n\t\t\t\t<div>Selector:</div>\n\t\t\t\t<input type="text" id="selector" style="width: 100%;" value="' +
+'</span>\n\t\t\t\t<div>Selector:</div>\n\t\t\t\t<input type="text" id="selector" name="selector" style="width: 100%;" value="' +
 ((__t = (tip ? tip.get("selector") : "")) == null ? '' : __t) +
-'"/><br/>\n\t\t\t\t<div>Message:</div>\n\t\t\t\t<textarea id="message" style="width: 100%;">' +
+'"/><br/>\n\t\t\t\t<div>Message:</div>\n\t\t\t\t<textarea id="message" name="message" style="width: 100%;">' +
 ((__t = (tip ? tip.get("msg") : "")) == null ? '' : __t) +
 '</textarea><br/>\n\t\t\t\t<div>Do after:</div>\n\t\t\t\t<select id="doAfter" name="doAfter"> \n\t\t\t\t\t<option value="nextTip">Show next tip</option>\n\t\t\t\t\t<option value="close">Close</option>\n\t\t\t\t</select>\n\t\t\t\t<a class="hrefButton" id="saveBtn" href=# data-tip-id="' +
 ((__t = (tip.id)) == null ? '' : __t) +

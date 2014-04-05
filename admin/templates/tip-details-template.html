@@ -1,9 +1,9 @@
 <div style="border: 1px solid #AAAAAA; margin: 15px 3px 3px; padding: 0.4em;">
 				<span><%=tip ? "Edit tip" : "New tip"%></span>
 				<div>Selector:</div>
-				<input type="text" id="selector" style="width: 100%;" value="<%=tip ? tip.get("selector") : ""%>"/><br/>
+				<input type="text" id="selector" name="selector" style="width: 100%;" value="<%=tip ? tip.get("selector") : ""%>"/><br/>
 				<div>Message:</div>
-				<textarea id="message" style="width: 100%;"><%=tip ? tip.get("msg") : ""%></textarea><br/>
+				<textarea id="message" name="message" style="width: 100%;"><%=tip ? tip.get("msg") : ""%></textarea><br/>
 				<div>Do after:</div>
 				<select id="doAfter" name="doAfter"> 
 					<option value="nextTip">Show next tip</option>
