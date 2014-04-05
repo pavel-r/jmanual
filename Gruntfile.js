@@ -34,25 +34,31 @@ module.exports = function(grunt) {
                 }
             }
         },
-	concat: {
-	    dist: {
-		src : ['admin/js/*.js'],
-		dest : 'build/jmanual-admin.js'
-	    }
-	},
-	uglify: {		
-	   build: {
-		src: 'build/jmanual-admin.js',
-		dest: 'build/jmanual-admin.min.js'
-	   }
-	}
-	
+		concat: {
+			dist: {
+			src : ['admin/js/*.js'],
+			dest : 'build/jmanual-admin.js'
+			}
+		},
+		uglify: {		
+		   build: {
+			src: 'build/jmanual-admin.js',
+			dest: 'build/jmanual-admin.min.js'
+		   }
+		},
+		jshint: {
+			files : ["admin/**/*.js", "client/**/*.js"]
+		}
     });
 
     // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib-jst');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-concat');
+
+	//Test tasks
+	grunt.registerTask('test', ['jshint']);
 
     // Default task.
     grunt.registerTask('default', ['jst', 'concat', 'uglify']);
