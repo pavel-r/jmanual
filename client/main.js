@@ -6,6 +6,7 @@ this["JManual.Domain"] = "@domain@";
         "//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js",
         "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js",
         window["JManual.Domain"] + "/admin/js/templates.js",
+		window["JManual.Domain"] + "/admin/js/jmanual.core.js",
         window["JManual.Domain"] + "/admin/js/jmanual.utils.js",
         window["JManual.Domain"] + "/client/js/jmanual.client.js"
     ];
