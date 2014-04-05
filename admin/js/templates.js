@@ -14,7 +14,7 @@ this["JST"]["admin/templates/client-panel-template.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="clientPanel" style="position: absolute; top: -1px; right: 50px; border: 1px solid #aaaaaa; padding: 5px; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px;">\n\t<img src="http://ancient-gorge-2130.herokuapp.com/client/bulb.png" style="float: left; width: 45px;"/>\n\t<a id="startBtn" href=# onclick="beginTraining();" style="display:block; margin-left: 64px;">Start training</a>\n\t<a id="startBtn" href=# onclick="nextTip();" style="display:block; margin-left: 64px;">Next tip</a>\n</div>\n<div id="tipContainer"></div>\n';
+__p += '<div id="clientPanel" style="position: absolute; top: -1px; right: 50px; border: 1px solid #aaaaaa; padding: 5px; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px;">\n\t<img src="http://ancient-gorge-2130.herokuapp.com/client/bulb.png" style="float: left; width: 45px;"/>\n\t<a id="startBtn" href=# onclick="Jmanual.Methods.beginTraining();" style="display:block; margin-left: 64px;">Start training</a>\n\t<a id="startBtn" href=# onclick="Jmanual.Methods.nextTip();" style="display:block; margin-left: 64px;">Next tip</a>\n</div>\n<div id="tipContainer"></div>\n';
 
 }
 return __p
@@ -32,7 +32,7 @@ __p += '<div id="msgWindow" style="position:absolute; left: ' +
 ((__t = (cssclass)) == null ? '' : __t) +
 '" style="font-size: 12px;">' +
 ((__t = (msg)) == null ? '' : __t) +
-'\n\t\t  <a href=# onclick="closeTip();return false;">OK</a>\n\t\t</p>\n</div>\n';
+'\n\t\t  <a href=# onclick="Jmanual.Methods.closeTip();return false;">OK</a>\n\t\t</p>\n</div>\n';
 
 }
 return __p
