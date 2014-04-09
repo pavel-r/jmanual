@@ -4,11 +4,11 @@
 					<div>Selector:</div>
 					<input type="text" id="selector" name="selector" style="width: 100%;" value="<%=tip ? tip.get("selector") : ""%>"/><br/>
 					<div>Message:</div>
-					<textarea id="message" name="message" style="width: 100%;"><%=tip ? tip.get("msg") : ""%></textarea><br/>
+					<textarea id="msg" name="msg" style="width: 100%;"><%=tip ? tip.get("msg") : ""%></textarea><br/>
 					<div>Do after:</div>
 					<select id="doAfter" name="doAfter">
-						<option value="nextTip">Show next tip</option>
-						<option value="close">Close</option>
+						<option value="close" <%=(tip && tip.get("doAfter") === "close") ? "selected=" : ""%>>Close</option>
+						<option value="nextTip" <%=(tip && tip.get("doAfter") === "nextTip") ? "selected=" : ""%>>Show next tip</option>
 					</select>
 					<a class="hrefButton" id="saveBtn" href=# data-tip-id="<%=tip.id%>">Save</a>
 					<% if(tip) { %>

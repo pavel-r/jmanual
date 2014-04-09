@@ -49,14 +49,22 @@
 		}
 		var selector = tip.selector;
 		if(selector == ""){
-			$("#tipContainer").html(theTipTemplate({ left: "50%", top: "50%", msg: tip.msg, cssclass: "notriangle-msg"}));
+			$("#tipContainer").html(theTipTemplate({ left: "50%", 
+													top: "50%", 
+													msg: tip.msg, 
+													doAfter: tip.doAfter, 
+													cssclass: "notriangle-msg"}));
 			return true;
 		} else {
 			var firstFound = Jmanual.Utils.getElem(selector)[0];
 			
 			if(!firstFound){
-			$("#tipContainer").html(theTipTemplate({ left: "50%", top: "50%", msg: "Cannot show next tip. Make sure you did all previous steps correctly", cssclass: "alert-msg"}));
-			return false;
+				$("#tipContainer").html(theTipTemplate({ left: "50%", 
+														top: "50%", 
+														msg: "Cannot show next tip. Make sure you did all previous steps correctly", 
+														doAfter: tip.doAfter, 
+														cssclass: "alert-msg"}));
+				return false;
 			}
 
 			var el = firstFound.elem;
@@ -64,7 +72,11 @@
 			position.top += firstFound.offs.top;
 			position.left += firstFound.offs.left;
 			position.top += 15;
-			var tipBox = theTipTemplate({ left: (position.left + "px"), top: (position.top + "px"), msg: tip.msg, cssclass: "triangle-isosceles top"});
+			var tipBox = theTipTemplate({ left: (position.left + "px"), 
+										top: (position.top + "px"), 
+										msg: tip.msg, 
+										doAfter: tip.doAfter, 
+										cssclass: "triangle-isosceles top"});
 			$("#tipContainer").html(tipBox);
 			return true;
 		}

@@ -1,7 +1,7 @@
 var fs = require('fs');
 var express = require('express');
-var MongoClient = require('mongodb').MongoClient;
-var ObjectID = require('mongodb').ObjectID;
+var https = require('https');
+var http = require('http');
 var app = express();
 app.use(express.logger());
 app.use(express.bodyParser());
@@ -10,8 +10,11 @@ app.use(express.session({secret: '12345qwerty', key: 'sid'}));
 app.use('/admin',express.static('admin'));
 app.use('/client',express.static('client'));
 
-var domain = "//ancient-gorge-2130.herokuapp.com"; //"//54.186.137.81:5000";
+var domain = "//localhost:5000"; //"//ancient-gorge-2130.herokuapp.com"; //"//54.186.137.81:5000";
 //connect to db
+var MongoClient = require('mongodb').MongoClient;
+var ObjectID = require('mongodb').ObjectID;
+
 var conString = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://heroku_app23023408:g45snehu57kfpam45uc3icn0a8@ds045907.mongolab.com:45907/heroku_app23023408';
 var conOptions = {server: {auto_reconnect:true}};
 console.log(conString);
@@ -132,7 +135,17 @@ app.get('/cors/:id', function (request, response) {
 });
 
 var port = process.env.PORT || 5000;
+http.createServer(app).listen(port);
 
+//To run https server
+/*
+var privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
+var certificate = fs.readFileSync('sslcert/server.crt', 'utf8');
+var credentials = {key: privateKey, cert: certificate};
+https.createServer(credentials, app).listen(6000);
+
+/*
 app.listen(port, function(){
     console.log('Server started on port ' + port);
 });
+*/
