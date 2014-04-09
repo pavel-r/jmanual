@@ -1,11 +1,36 @@
-<div id="msgWindow" style="position:absolute; left: <%=left%>; top: <%=top%>;">
-		<p class="<%=cssclass%>" style="font-size: 12px;"><%=msg%>
-		  <a href=# onclick="Jmanual.closeTip();return false;">
-		  <%if(doAfter === "nextTip") {%>
-			NEXT
-		  <%} else {%>
-			OK
-		  <%}%>
-		  </a>
+<%
+var position = tip.position;
+var message = tip.msg;
+var btnTxt = tip.doAfter === "nextTip" ? "NEXT" : "OK";
+var cssStyle = "";
+var pCssClass = "";
+
+if(position !== "nextTo"){
+	pCssClass = "notriangle-msg";
+} else {
+	var selector = tip.selector;
+	var firstFound = Jmanual.Utils.getElem(selector)[0];
+	if(firstFound){
+		pCssClass = "triangle-isosceles top";
+		
+		var cssPos = (firstFound.elem === null ? null : $(firstFound.elem).offset());
+		cssPos.top += firstFound.offs.top;
+		cssPos.left += firstFound.offs.left;
+		cssPos.top += 15;
+		cssStyle += ("left:" + cssPos.left + "px;");
+		cssStyle += ("top:" + cssPos.top + "px;");
+	} else {
+		position = "center";
+		pCssClass = "alert-msg";
+		btnTxt = "OK"
+		message = "Cannot show next tip. Make sure you did all previous steps correctly";
+	}
+}
+
+%>
+<div id="msgWindow" class="<%=position%>" style="<%=cssStyle%>">
+		<p class="<%=pCssClass%>">
+			<%=message%>
+			<a href=# onclick="Jmanual.closeTip();return false;"><%=btnTxt%></a>
 		</p>
 </div>

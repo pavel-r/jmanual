@@ -1,8 +1,24 @@
+/*Tip list template*/
 #allTips .ui-selecting { background: #FECA40; }
 #allTips .ui-selected { background: #F39814; color: white; }
 #allTips { list-style-type: none; margin: 0; padding: 0; }
 #allTips li { margin: 3px; padding: 0.4em;}
 
+/*Tip edit panel*/
+#detailsPanel .title-lbl {width: 100%; text-align: center;}
+#detailsPanel label {display: block; margin: 2px 0 2px 0;}
+#detailsPanel input {display: block; width: 100%;}
+#detailsPanel textarea {width: 100%;}
+#detailsPanel select {width: 100%;}
+
+/*Tip bubble*/
+#msgWindow {position: absolute;}
+#msgWindow p {font-size: 12px;}
+#msgWindow.center{left: 50%; top: 50%;}
+#msgWindow.topLeft{left: 20px; top: 20px;}
+#msgWindow.topRight{ top: 20px; right: 20px;}
+#msgWindow.bottomLeft{ bottom: 20px; left: 20px;}
+#msgWindow.bottomRight{ bottom: 20px; right: 20px;}
 
 /* ============================================================================================================================
 == BUBBLE WITH AN ISOCELES TRIANGLE
@@ -24,9 +40,10 @@
   -webkit-border-radius:10px;
   -moz-border-radius:10px;
   border-radius:10px;
-  width: 300px;
-  margin-left: -150px;
+  /*width: 300px;*/
+  /*margin-left: -150px;*/
 }
+
 .alert-msg{
   position:relative;
   padding:15px;
@@ -36,9 +53,10 @@
   -webkit-border-radius:10px;
   -moz-border-radius:10px;
   border-radius:10px;
-  width: 300px;
-  margin-left: -150px;
+  /*width: 300px;*/
+  /*margin-left: -150px;*/
 }
+
 .triangle-isosceles {
   position:relative;
   padding:15px;

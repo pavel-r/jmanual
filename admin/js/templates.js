@@ -25,21 +25,48 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<div id="msgWindow" style="position:absolute; left: ' +
-((__t = (left)) == null ? '' : __t) +
-'; top: ' +
-((__t = (top)) == null ? '' : __t) +
-';">\r\n\t\t<p class="' +
-((__t = (cssclass)) == null ? '' : __t) +
-'" style="font-size: 12px;">' +
-((__t = (msg)) == null ? '' : __t) +
-'\r\n\t\t  <a href=# onclick="Jmanual.closeTip();return false;">\r\n\t\t  ';
-if(doAfter === "nextTip") {;
-__p += '\r\n\t\t\tNEXT\r\n\t\t  ';
-} else {;
-__p += '\r\n\t\t\tOK\r\n\t\t  ';
-};
-__p += '\r\n\t\t  </a>\r\n\t\t</p>\r\n</div>\r\n';
+
+
+var position = tip.position;
+var message = tip.msg;
+var btnTxt = tip.doAfter === "nextTip" ? "NEXT" : "OK";
+var cssStyle = "";
+var pCssClass = "";
+
+if(position !== "nextTo"){
+	pCssClass = "notriangle-msg";
+} else {
+	var selector = tip.selector;
+	var firstFound = Jmanual.Utils.getElem(selector)[0];
+	if(firstFound){
+		pCssClass = "triangle-isosceles top";
+		
+		var cssPos = (firstFound.elem === null ? null : $(firstFound.elem).offset());
+		cssPos.top += firstFound.offs.top;
+		cssPos.left += firstFound.offs.left;
+		cssPos.top += 15;
+		cssStyle += ("left:" + cssPos.left + "px;");
+		cssStyle += ("top:" + cssPos.top + "px;");
+	} else {
+		position = "center";
+		pCssClass = "alert-msg";
+		btnTxt = "OK"
+		message = "Cannot show next tip. Make sure you did all previous steps correctly";
+	}
+}
+
+;
+__p += '\r\n<div id="msgWindow" class="' +
+((__t = (position)) == null ? '' : __t) +
+'" style="' +
+((__t = (cssStyle)) == null ? '' : __t) +
+'">\r\n\t\t<p class="' +
+((__t = (pCssClass)) == null ? '' : __t) +
+'">\r\n\t\t\t' +
+((__t = (message)) == null ? '' : __t) +
+'\r\n\t\t\t<a href=# onclick="Jmanual.closeTip();return false;">' +
+((__t = (btnTxt)) == null ? '' : __t) +
+'</a>\r\n\t\t</p>\r\n</div>\r\n';
 
 }
 return __p
@@ -50,17 +77,27 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<form id="tipEditForm">\r\n\t<div style="border: 1px solid #AAAAAA; margin: 15px 3px 3px; padding: 0.4em;">\r\n\t\t\t\t\t<span>' +
+__p += '<div style="border: 1px solid #AAAAAA; margin: 15px 3px 3px; padding: 0.4em;">\r\n\t\t\t\t\t<label class="title-lbl"><b>' +
 ((__t = (tip ? "Edit tip" : "New tip")) == null ? '' : __t) +
-'</span>\r\n\t\t\t\t\t<div>Selector:</div>\r\n\t\t\t\t\t<input type="text" id="selector" name="selector" style="width: 100%;" value="' +
+'</b></label>\r\n\t\t\t\t\t<label>Position:</label>\r\n\t\t\t\t\t<select id="position">\r\n\t\t\t\t\t\t<option value="nextTo">Next to</option>\r\n\t\t\t\t\t\t<option value="center" ' +
+((__t = ((tip && tip.get("position") === "center") ? "selected=" : "")) == null ? '' : __t) +
+'>Center</option>\r\n\t\t\t\t\t\t<option value="topLeft" ' +
+((__t = ((tip && tip.get("position") === "topLeft") ? "selected=" : "")) == null ? '' : __t) +
+'>Top left</option>\r\n\t\t\t\t\t\t<option value="topRight" ' +
+((__t = ((tip && tip.get("position") === "topRight") ? "selected=" : "")) == null ? '' : __t) +
+'>Top right</option>\r\n\t\t\t\t\t\t<option value="bottomLeft" ' +
+((__t = ((tip && tip.get("position") === "bottomLeft") ? "selected=" : "")) == null ? '' : __t) +
+'>Bottom left</option>\r\n\t\t\t\t\t\t<option value="bottomRight" ' +
+((__t = ((tip && tip.get("position") === "bottomRight") ? "selected=" : "")) == null ? '' : __t) +
+'>Bottom right</option>\r\n\t\t\t\t\t</select>\r\n\t\t\t\t\t<label>Element:</label>\r\n\t\t\t\t\t<input type="text" id="selector" value="' +
 ((__t = (tip ? tip.get("selector") : "")) == null ? '' : __t) +
-'"/><br/>\r\n\t\t\t\t\t<div>Message:</div>\r\n\t\t\t\t\t<textarea id="msg" name="msg" style="width: 100%;">' +
+'"/>\r\n\t\t\t\t\t<label>Message:</label>\r\n\t\t\t\t\t<textarea id="msg">' +
 ((__t = (tip ? tip.get("msg") : "")) == null ? '' : __t) +
-'</textarea><br/>\r\n\t\t\t\t\t<div>Do after:</div>\r\n\t\t\t\t\t<select id="doAfter" name="doAfter">\r\n\t\t\t\t\t\t<option value="close" ' +
+'</textarea>\r\n\t\t\t\t\t<label>Do after:</label>\r\n\t\t\t\t\t<select id="doAfter">\r\n\t\t\t\t\t\t<option value="close" ' +
 ((__t = ((tip && tip.get("doAfter") === "close") ? "selected=" : "")) == null ? '' : __t) +
 '>Close</option>\r\n\t\t\t\t\t\t<option value="nextTip" ' +
 ((__t = ((tip && tip.get("doAfter") === "nextTip") ? "selected=" : "")) == null ? '' : __t) +
-'>Show next tip</option>\r\n\t\t\t\t\t</select>\r\n\t\t\t\t\t<a class="hrefButton" id="saveBtn" href=# data-tip-id="' +
+'>Show next tip</option>\r\n\t\t\t\t\t</select>\r\n\t\t\t\t\t<label></label>\r\n\t\t\t\t\t<a class="hrefButton" id="saveBtn" href=# data-tip-id="' +
 ((__t = (tip.id)) == null ? '' : __t) +
 '">Save</a>\r\n\t\t\t\t\t';
  if(tip) { ;
@@ -68,7 +105,7 @@ __p += '\r\n\t\t\t\t\t<a class="hrefButton" id="deleteBtn" href=# data-tip-id="'
 ((__t = (tip.id)) == null ? '' : __t) +
 '">Delete</a>\r\n\t\t\t\t\t';
  };;
-__p += '\r\n\t</div>\r\n</form>\r\n';
+__p += '\r\n\t\t\t\t\t<a class="hrefButton" id="cancelBtn" href=#">Cancel</a>\r\n</div>\r\n\r\n';
 
 }
 return __p

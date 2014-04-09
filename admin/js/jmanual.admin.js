@@ -7,22 +7,6 @@
 	Jmanual.closeTip = function(){};
 	Jmanual.nextTip = function(){};
 	
-	$.fn.serializeObject = function() {
-		var o = {};
-		var a = this.serializeArray();
-		$.each(a, function() {
-			if (o[this.name] !== undefined) {
-				if (!o[this.name].push) {
-					o[this.name] = [o[this.name]];
-				}
-				o[this.name].push(this.value || '');
-			} else {
-				o[this.name] = this.value || '';
-			}
-		});
-		return o;
-	};
-	
 	var Tip = Backbone.Model.extend({
 		defaults: function(){
 			return {
@@ -73,7 +57,8 @@
 		template: window['JST']['admin/templates/tip-details-template.html'],
 		events : {
 			"click #saveBtn" : "saveTip",
-			"click #deleteBtn" : "deleteTip"
+			"click #deleteBtn" : "deleteTip",
+			"click #cancelBtn" : "hide"
 		},
 		render: function(options){
 			if(options.id){
@@ -89,7 +74,8 @@
 		},
 		saveTip : function(e){
 			var id = $(e.currentTarget).attr("data-tip-id");
-			var user = $("#tipEditForm").serializeObject(); //this.serialize();
+			var user = this.serialize();
+			//TODO: do validation e.g. elementid is not empty and element exists
 			if(id){
 				lesson.get(id).save(user);
 			} else {
@@ -106,7 +92,9 @@
 		serialize: function(){
 			return {
 				selector : this.$("#selector").val(),
-				msg : this.$("#message").val()
+				msg : this.$("#msg").val(),
+				doAfter: this.$("#doAfter").val(),
+				position: this.$("#position").val()
 			};
 		}
 	});
@@ -117,22 +105,7 @@
 		render: function(options){
 			this.hide();
 			var tip = lesson.get(options.id);
-			var selector = tip.get("selector");
-			if(selector == ""){
-				this.$el.html(this.template({ left: "50%", top: "50%", msg: tip.get("msg"), cssclass: "notriangle-msg"}));
-			} else {
-				var firstFound = Jmanual.Utils.getElem(selector)[0];
-				if(!firstFound){
-					this.$el.html(this.template({ left: "50%", top: "50%", msg: "Cannot show next tip. Make sure you did all previous steps correctly", cssclass: "alert-msg"}));
-					return false;
-				}
-				var el = firstFound.elem;
-				var position = (el == null ? null : $(el).offset());
-				position.top += firstFound.offs.top;
-				position.left += firstFound.offs.left;
-				position.top += 15;
-				this.$el.html(this.template({ left: (position.left + "px"), top: (position.top + "px"), msg: tip.get("msg"), cssclass: "triangle-isosceles top"}));
-			}
+			this.$el.html(this.template({tip: tip.toJSON()}));
 		},
 		hide: function(){
 			this.$el.html("");

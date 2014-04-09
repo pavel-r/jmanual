@@ -1,18 +1,28 @@
-<form id="tipEditForm">
-	<div style="border: 1px solid #AAAAAA; margin: 15px 3px 3px; padding: 0.4em;">
-					<span><%=tip ? "Edit tip" : "New tip"%></span>
-					<div>Selector:</div>
-					<input type="text" id="selector" name="selector" style="width: 100%;" value="<%=tip ? tip.get("selector") : ""%>"/><br/>
-					<div>Message:</div>
-					<textarea id="msg" name="msg" style="width: 100%;"><%=tip ? tip.get("msg") : ""%></textarea><br/>
-					<div>Do after:</div>
-					<select id="doAfter" name="doAfter">
+<div style="border: 1px solid #AAAAAA; margin: 15px 3px 3px; padding: 0.4em;">
+					<label class="title-lbl"><b><%=tip ? "Edit tip" : "New tip"%></b></label>
+					<label>Position:</label>
+					<select id="position">
+						<option value="nextTo">Next to</option>
+						<option value="center" <%=(tip && tip.get("position") === "center") ? "selected=" : ""%>>Center</option>
+						<option value="topLeft" <%=(tip && tip.get("position") === "topLeft") ? "selected=" : ""%>>Top left</option>
+						<option value="topRight" <%=(tip && tip.get("position") === "topRight") ? "selected=" : ""%>>Top right</option>
+						<option value="bottomLeft" <%=(tip && tip.get("position") === "bottomLeft") ? "selected=" : ""%>>Bottom left</option>
+						<option value="bottomRight" <%=(tip && tip.get("position") === "bottomRight") ? "selected=" : ""%>>Bottom right</option>
+					</select>
+					<label>Element:</label>
+					<input type="text" id="selector" value="<%=tip ? tip.get("selector") : ""%>"/>
+					<label>Message:</label>
+					<textarea id="msg"><%=tip ? tip.get("msg") : ""%></textarea>
+					<label>Do after:</label>
+					<select id="doAfter">
 						<option value="close" <%=(tip && tip.get("doAfter") === "close") ? "selected=" : ""%>>Close</option>
 						<option value="nextTip" <%=(tip && tip.get("doAfter") === "nextTip") ? "selected=" : ""%>>Show next tip</option>
 					</select>
+					<label></label>
 					<a class="hrefButton" id="saveBtn" href=# data-tip-id="<%=tip.id%>">Save</a>
 					<% if(tip) { %>
 					<a class="hrefButton" id="deleteBtn" href=# data-tip-id="<%=tip.id%>">Delete</a>
 					<% };%>
-	</div>
-</form>
+					<a class="hrefButton" id="cancelBtn" href=#">Cancel</a>
+</div>
+
