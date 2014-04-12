@@ -58,7 +58,8 @@
 		events : {
 			"click #saveBtn" : "saveTip",
 			"click #deleteBtn" : "deleteTip",
-			"click #cancelBtn" : "hide"
+			"click #cancelBtn" : "hide",
+			"change #position" : "toggleSelector"
 		},
 		render: function(options){
 			if(options.id){
@@ -67,10 +68,19 @@
 			} else {
 				this.$el.html(this.template({tip : ""}));
 			}
-			$(".hrefButton").button();
+			this.toggleSelector();
+			this.$(".hrefButton").button();
 		},
 		hide: function(){
 			this.$el.html("");
+		},
+		toggleSelector: function() {
+			var position = this.$("#position").val();
+			if(position === "nextTo"){
+				this.$("#selector").removeAttr("disabled");
+			} else {
+				this.$("#selector").attr("disabled", "true");
+			}
 		},
 		saveTip : function(e){
 			var id = $(e.currentTarget).attr("data-tip-id");

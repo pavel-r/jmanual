@@ -14,7 +14,7 @@ this["JST"]["admin/templates/client-panel-template.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="clientPanel" style="position: absolute; top: -1px; right: 50px; border: 1px solid #aaaaaa; padding: 5px; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px;">\r\n\t<img src="http://ancient-gorge-2130.herokuapp.com/client/bulb.png" style="float: left; width: 45px;"/>\r\n\t<a id="startBtn" href=# onclick="Jmanual.beginTraining();" style="display:block; margin-left: 64px;">Start training</a>\r\n\t<a id="startBtn" href=# onclick="Jmanual.nextTip();" style="display:block; margin-left: 64px;">Next tip</a>\r\n</div>\r\n<div id="tipContainer"></div>\r\n';
+__p += '<div id="clientPanel" style="position: absolute; top: -1px; right: 50px; border: 1px solid #aaaaaa; padding: 5px; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px;">\r\n\t<img src="//localhost:5000/client/bulb.png" style="float: left; width: 45px;"/>\r\n\t<a id="startBtn" href=# onclick="Jmanual.beginTraining();" style="display:block; margin-left: 64px;">Start training</a>\r\n\t<a id="startBtn" href=# onclick="Jmanual.nextTip();" style="display:block; margin-left: 64px;">Next tip</a>\r\n</div>\r\n<div id="tipContainer"></div>\r\n';
 
 }
 return __p
