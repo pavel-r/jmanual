@@ -27,7 +27,7 @@
 	
 	var LessonView = Backbone.View.extend({
 		el : "#listPanel",
-		template: window['JST']['admin/templates/tips-list-template.html'],
+		template: window['JST']['templates/tips-list-template.html'],
 		events: {
 			"click li" : "selectTip"
 		},
@@ -54,7 +54,7 @@
 	
 	var TipEditView = Backbone.View.extend({
 		el : "#detailsPanel",
-		template: window['JST']['admin/templates/tip-details-template.html'],
+		template: window['JST']['templates/tip-details-template.html'],
 		events : {
 			"click #saveBtn" : "saveTip",
 			"click #deleteBtn" : "deleteTip",
@@ -111,7 +111,7 @@
 	
     var TipBubbleView = Backbone.View.extend({
 		el: "#tipContainer",
-		template: window['JST']['admin/templates/tip-bubble-template.html'],
+		template: window['JST']['templates/tip-bubble-template.html'],
 		render: function(options){
 			this.hide();
 			var tip = lesson.get(options.id);
@@ -123,7 +123,7 @@
     });
 	
 	var AppView = Backbone.View.extend({
-		template: window['JST']['admin/templates/admin-panel-template.html'],
+		template: window['JST']['templates/admin-panel-template.html'],
 		events: {
 			"click #newTipBtn" : "openTipDetails",
 			"click #saveModelBtn" : "saveModel",	
@@ -195,7 +195,7 @@
 		//load css files
 		var STYLES = [         // the css filenames
 			"//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css",
-			 domain + "/admin/css/jmanual.admin.css"
+			 domain + "/app/css/jmanual.main.css"
 		];
 		var html = [];
 		for (var i = 0; i < STYLES.length; i++) {

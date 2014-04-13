@@ -53,18 +53,18 @@
 
     function showClientPanel() {
 		//Initialize templates
-		clientPanelTemplate = window['JST']['admin/templates/client-panel-template.html'];
-		theTipTemplate = window['JST']['admin/templates/tip-bubble-template.html'];
+		clientPanelTemplate = window['JST']['templates/client-panel-template.html'];
+		theTipTemplate = window['JST']['templates/tip-bubble-template.html'];
 
 		//Create DOM elements
-		$('body').append(clientPanelTemplate());
+		$('body').append(clientPanelTemplate({domain : domain}));
     }
 
     $(window).load(function () {
 		//load css files
 		var STYLES = [         // the css filenames
 			"//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css",
-			domain + "/admin/css/jmanual.admin.css"
+			domain + "/app/css/jmanual.main.css"
 		];
 		var html = [];
 		for (var i = 0; i < STYLES.length; i++) {

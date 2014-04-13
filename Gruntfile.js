@@ -6,44 +6,47 @@ module.exports = function(grunt) {
         //Read the package.json (optional)
         pkg: grunt.file.readJSON('package.json'),
 
-        // Metadata.
-        meta: {
-            basePath: '../',
-            srcPath: '../assets/src/',
-            deployPath: '../assets/deploy/'
-        },
-
-        banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
-                '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-                '* Copyright (c) <%= grunt.template.today("yyyy") %> ',
-
         // Task configuration.
         jst: {
-            compile: {
-                options: {
-
-                    //namespace: "templates",                 //Default: 'JST'
-                    prettify: false,                        //Default: false|true
-                    amdWrapper: false,                      //Default: false|true
-                    templateSettings: {
-                        //interpolate : /\{\{(.+?)\}\}/g    //Mustache Syntax
-                    }
-                },
+			options: {
+				processName: function(filename) {
+					return filename.slice(filename.indexOf("template"), filename.length);
+				}
+			},
+            client: {
                 files: {
-                    "admin/js/templates.js": ["admin/templates/*.html"]
+                    'widget/jmanual.client.templates.js': ['widget/templates/*.html']
                 }
-            }
+            },
+			admin : {
+				files: {
+					'widget/jmanual.admin.templates.js': ['widget/templates/*.html']
+				}
+			}
         },
 		concat: {
-			dist: {
-			src : ['admin/js/*.js'],
-			dest : 'build/jmanual-admin.js'
+			//concatenate files in dependency order
+			client: {
+				src : ['widget/jmanual.common*.js', 
+					   'widget/jmanual.client.templates.js', 
+					   'widget/jmanual.client.app.js'],
+				dest : 'build/jmanual-client.js'
+			},
+			admin: {
+				src : ['widget/jmanual.common*.js', 
+					   'widget/jmanual.admin.templates.js', 
+					   'widget/jmanual.admin.app.js'],
+				dest : 'build/jmanual-admin.js'
 			}
 		},
 		uglify: {		
-		   build: {
-			src: 'build/jmanual-admin.js',
-			dest: 'build/jmanual-admin.min.js'
+		   client: {
+				src: 'build/jmanual-client.js',
+				dest: 'build/jmanual-client.min.js'
+		   },
+		   admin: {
+				src: 'build/jmanual-admin.js',
+				dest: 'build/jmanual-admin.min.js'
 		   }
 		},
 		jshint: {

@@ -3,22 +3,43 @@ var express = require('express');
 var https = require('https');
 var http = require('http');
 var app = express();
-app.use(express.logger());
-app.use(express.bodyParser());
-app.use(express.cookieParser());
-app.use(express.session({secret: '12345qwerty', key: 'sid'}));
-app.use('/admin',express.static('admin'));
-app.use('/client',express.static('client'));
 
-var domain = "//localhost:5000"; //"//ancient-gorge-2130.herokuapp.com"; //"//54.186.137.81:5000";
-//connect to db
+//common configuration
+app.configure(function(){
+	app.use(express.logger());
+	app.use(express.bodyParser());
+	app.use(express.cookieParser());
+	app.use(express.session({secret: '12345qwerty', key: 'sid'}));
+});
+
+var domain;
+var clientMain;
+var adminMain;
+
+//development configuration
+app.configure('development', function(){
+	app.use('/app',express.static('widget'));
+	domain = "//localhost:5000";
+	clientMain = 'widget/client.main.dev.js';
+	adminMain = 'widget/admin.main.dev.js';
+});
+
+//production configuration
+app.configure('production', function(){
+	app.use('/app',express.static('build'));
+	domain = "//localhost:5000"; //ancient-gorge-2130.herokuapp.com"; //"//54.186.137.81:5000";
+	clientMain = 'widget/client.main.js';
+	adminMain = 'widget/admin.main.js';
+});
+
 var MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
 
+//connect to db
 var conString = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://heroku_app23023408:g45snehu57kfpam45uc3icn0a8@ds045907.mongolab.com:45907/heroku_app23023408';
 var conOptions = {server: {auto_reconnect:true}};
 console.log(conString);
-var p_db = null;
+var p_db;
 MongoClient.connect(conString, conOptions, function(err, db){
     if(err){
 	console.log(err);
@@ -78,11 +99,11 @@ app.post('/login', function (request, response) {
 //API
 //////////////////////////////////////////////////////////
 
-app.get('/:userid/admin/main.js', function (request, response) {
+app.get('/:userid/admin-app.js', function (request, response) {
 	var userId = request.params.userid;
     p_db.collection('users').findOne({_id:ObjectID(userId)},function(err, user){
 		if(!user) response.send("");
-		var content = fs.readFileSync('admin/main.js');
+		var content = fs.readFileSync(adminMain);
 		var contentStr = content.toString();
 		contentStr = contentStr.replace('@userId@', userId);
 		contentStr = contentStr.replace('@domain@', domain);
@@ -91,11 +112,11 @@ app.get('/:userid/admin/main.js', function (request, response) {
 	});    
 });
 
-app.get('/:userid/client/main.js', function (request, response) {
+app.get('/:userid/client-app.js', function (request, response) {
 	var userId = request.params.userid;
     p_db.collection('users').findOne({_id:ObjectID(userId)},function(err, user){
 		if(!user) response.send("");
-		var content = fs.readFileSync('client/main.js');
+		var content = fs.readFileSync(clientMain);
 		var contentStr = content.toString();
 		contentStr = contentStr.replace('@userId@', userId);
 		contentStr = contentStr.replace('@domain@', domain);

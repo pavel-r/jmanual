@@ -8,10 +8,10 @@ this["JManual.Domain"] = "@domain@";
         "//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js",
         "//cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.0/backbone.localStorage-min.js",
         "//code.jquery.com/ui/1.10.4/jquery-ui.js",
-        window["JManual.Domain"] + "/admin/js/templates.js",
-		window["JManual.Domain"] + "/admin/js/jmanual.core.js",
-        window["JManual.Domain"] + "/admin/js/jmanual.utils.js",
-        window["JManual.Domain"] + "/admin/js/jmanual.admin.js"
+		window["JManual.Domain"] + "/app/jmanual.common.core.js",
+        window["JManual.Domain"] + "/app/jmanual.common.utils.js",
+        window["JManual.Domain"] + "/app/jmanual.admin.templates.js",
+        window["JManual.Domain"] + "/app/jmanual.admin.app.js"
     ];
     
     var html = [];
