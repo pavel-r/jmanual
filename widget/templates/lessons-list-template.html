@@ -1,0 +1,6 @@
+<a id="newLessonBtn" href=#>New lesson</a>
+<ol id="allLessons">
+	<% _.each(lessons, function(lesson) { %> 
+		<li class="ui-widget-content" data-lesson-id="<%=lesson.get("_id")%>"><%=lesson.get("name")%><a href=# data-lesson-id="<%=lesson.get("_id")%>">Edit...</a></li>
+	<% }); %>
+</ol>

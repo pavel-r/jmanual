@@ -19,9 +19,9 @@
 						<option value="nextTip" <%=(tip && tip.get("doAfter") === "nextTip") ? "selected=" : ""%>>Show next tip</option>
 					</select>
 					<label></label>
-					<a class="hrefButton" id="saveBtn" href=# data-tip-id="<%=tip.id%>">Save</a>
+					<a class="hrefButton" id="saveBtn" href=#>Save</a>
 					<% if(tip) { %>
-					<a class="hrefButton" id="deleteBtn" href=# data-tip-id="<%=tip.id%>">Delete</a>
+					<a class="hrefButton" id="deleteBtn" href=#>Delete</a>
 					<% };%>
 					<a class="hrefButton" id="cancelBtn" href=#">Cancel</a>
 </div>

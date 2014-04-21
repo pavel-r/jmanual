@@ -1,5 +1,7 @@
+<a id="backBtn" href=#>&lt;Back</a>
+<a id="newTipBtn" href=#>New tip</a>
 <ol id="allTips">
-			<% _.each(tips, function(tip, idx) { %> 
-				<li class="ui-widget-content" data-tip-id="<%=tip.id%>"><%=idx%>. <%=tip.get("msg").slice(0, 10)%></li>
-			<% }); %>
+	<% _.each(tips, function(tip, idx) { %> 
+		<li class="ui-widget-content" data-tip-id="<%=tip.id%>"><%=idx%>. <%=tip.get("msg").slice(0, 10)%></li>
+	<% }); %>
 </ol>

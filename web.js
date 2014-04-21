@@ -122,37 +122,142 @@ app.get('/:userid/client-app.js', function (request, response) {
 		contentStr = contentStr.replace('@domain@', domain);
 		response.send(contentStr);
 		console.log('Request processed');
-	});    
+	});   
 });
 
-app.post('/cors/:id', function (request, response) {
-    if(request.body){
-		var tipdata = request.body.tipdata;
-		console.log(request.body.tipdata);
-		//fs.writeFileSync('client/js/jmanual.client.js', jscontent);
-		var userId = request.params.id;
-		p_db.collection('users').update({_id : ObjectID(userId)}, {$set: {jsondata:tipdata}}, function(err, result){
-			console.log(result + " users updated.");
-			response.setHeader("Access-Control-Allow-Origin", "*");
-			response.setHeader("Access-Control-Allow-Methods", "POST");
-			response.send("[]");
-			console.log('CORS POST Request processed');
-		});
-    }
+//get all lessons for manual
+app.get('/:userid/lessons', function(request, response) {
+	console.log('Incoming get request for lessons');
+	var userId = request.params.userid;
+	p_db.collection('lessons').find({user_id : ObjectID(userId)}).toArray(function(err, lessons){
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		//response.setHeader("Access-Control-Allow-Methods", "GET");
+		response.send(lessons);
+		console.log('Get request for lessons processed:' + lessons);
+	});
 });
 
-app.get('/cors/:id', function (request, response) {
-		var userId = request.params.id;
-		p_db.collection('users').findOne({_id : ObjectID(userId)}, function(err, user){
+app.get('/:userid/lessons/:id', function(request, response) {
+	var userId = request.params.userid;
+	var id = request.params.id;
+	console.log('Incoming get request for lesson with id: ' + id);
+	p_db.collection('lessons').findOne({_id: ObjectID(id), user_id : ObjectID(userId)}, function(err, lesson){
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		//response.setHeader("Access-Control-Allow-Methods", "GET");
+		response.send(lesson);
+		console.log('Get request for lesson processed:' + lesson);
+	});
+});
+
+//add lesson
+app.post('/:userid/lessons', function(request, response) {
+	var lesson = request.body;
+	lesson.user_id = ObjectID(request.params.userid);
+	console.log('Adding lesson: ' + JSON.stringify(lesson));
+	p_db.collection('lessons').insert(lesson, function(err, result){
+		console.log('Lesson added');
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.send('[]');
+	});
+});
+
+//update lesson
+app.put('/:userid/lessons/:id', function(request, response) {
+	var id = request.params.id;
+	var lesson = request.body;
+	console.log('Updating lesson with id ' + id + ': ' + JSON.stringify(lesson));
+	p_db.collection('lessons').update({_id : ObjectID(id)}, {$set: lesson}, function(err, result){
+		console.log("Lesson updated " + result);
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.send("[]");
+	});
+});
+
+//delete lesson
+app.delete('/:userid/lessons/:id', function(request, response) {
+	var id = request.params.id;
+	console.log('Deleting lesson with id ' + id);
+	p_db.collection('lessons').remove({_id: ObjectID(id)}, function(err, result){
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		//response.setHeader("Access-Control-Allow-Methods", "DELETE");
+		response.send('[]');
+	});
+});
+
+//respond to a preflight CORS request
+// check https://en.wikipedia.org/wiki/Cross-Origin_Resource_Sharing
+app.options('/:userid/lessons/:id', function(request, response){
+	response.setHeader("Access-Control-Allow-Origin", "*");
+	response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
+	response.send('[]');
+});
+app.options('/:userid/lessons', function(request, response){
+	response.setHeader("Access-Control-Allow-Origin", "*");
+	response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
+	response.send('[]');
+});
+
+//get all tips for lesson
+app.get('/:userid/tips', function (request, response) {
+		var lesson_id = request.query.lesson_id;
+		console.log('Getting all tips for lession: ' + lesson_id);
+		p_db.collection('tips').find({lesson_id : ObjectID(lesson_id)}).toArray(function(err, tips){
 			response.setHeader("Access-Control-Allow-Origin", "*");
-			response.setHeader("Access-Control-Allow-Methods", "GET");
-			if(user){
-				response.send(user.jsondata);
-			} else {
-				response.send("[]");
-			}
-			console.log('CORS GET Request processed');
+			response.send(tips);
+			console.log('Tips found: ' + JSON.stringify(tips));
 		});
+});
+
+app.get('/:userid/tips/:id', function(request, response) {
+	var id = request.params.id;
+	console.log('Incoming get request for tip with id: ' + id);
+	p_db.collection('tips').findOne({_id: ObjectID(id)}, function(err, tip){
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		//response.setHeader("Access-Control-Allow-Methods", "GET");
+		response.send(tip);
+		console.log('Get request for tip processed:' + tip);
+	});
+});
+
+//add tip
+app.post('/:userid/tips', function(request, response) {
+	var tip = request.body;
+	tip.lesson_id = ObjectID(tip.lesson_id);
+	console.log('Adding tip: ' + JSON.stringify(tip));
+	p_db.collection('tips').insert(tip, function(err, result){
+		console.log('Tip added');
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.send('[]');
+	});
+});
+
+//update tip
+app.put('/:userid/tips/:id', function (request, response) {
+    var id = request.params.id;
+	var tip = request.body;
+	console.log('Updating tip with id ' + id + ': ' + JSON.stringify(tip));
+	p_db.collection('tips').update({_id : ObjectID(id)}, {$set: tip}, function(err, result){
+		console.log("Tip updated " + result);
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.send("[]");
+	});
+});
+
+//respond to a preflight CORS request
+// check https://en.wikipedia.org/wiki/Cross-Origin_Resource_Sharing
+app.options('/:userid/tips/:id', function(request, response){
+	response.setHeader("Access-Control-Allow-Origin", "*");
+	response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
+	response.send('[]');
+});
+app.options('/:userid/tips', function(request, response){
+	response.setHeader("Access-Control-Allow-Origin", "*");
+	response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
+	response.send('[]');
 });
 
 var port = process.env.PORT || 5000;
