@@ -53,7 +53,7 @@
 		events: {
 			"click li" : "selectLesson",
 			"click li a" : "editLesson",
-			"click #newLessonBtn" : "newLesson"
+			"click #addLessonBtn" : "addLesson"
 		},
 		render: function(){
 			var that = this;
@@ -61,7 +61,7 @@
 			lessons.fetch({
 				success: function (lessons) {
 					that.$el.html(that.template({lessons: lessons.models}));
-					that.$("#newLessonBtn").button();
+					that.$(".hrefButton").button();
 				}
 			});
 		},
@@ -71,7 +71,7 @@
 			tipListView.render({lesson_id : id});
 			return false;
 		},
-		newLesson : function(){
+		addLesson : function(){
 			this.hide();
 			lessonEditView.render({});
 		},
@@ -101,13 +101,14 @@
 				that.lesson.fetch({
 					success: function (lesson) {
 					  that.$el.html(that.template({lesson : lesson}));
+					  that.$(".hrefButton").button();
 					}
 				});
 			} else {
 				this.lesson = null;
 				this.$el.html(this.template({lesson : ""}));
+				this.$(".hrefButton").button();
 			}
-			this.$(".hrefButton").button();
 		},
 		cancel : function(){
 			lessonEditView.hide();
@@ -150,7 +151,8 @@
 		template: window['JST']['templates/tips-list-template.html'],
 		events: {
 			"click li" : "selectTip",
-			"click #newTipBtn": "newTip",
+			"click li a" : "editTip",
+			"click #addTipBtn": "addTip",
 			"click #backBtn": "back"
 		},
 		initialize: function(){
@@ -166,25 +168,22 @@
 			tips.fetch({
 				success: function (tips) {
 					that.$el.html(that.template({tips : tips.models}));
-					that.$("#allTips").selectable({
-						selected: function(event, ui){
-							that.selectTip(ui.selected);
-						}
-					});
+					that.$(".hrefButton").button();
 				}
 			});
 		},
 		selectTip: function(e) {
-			var id = $(e).attr("data-tip-id");
+			var id = $(e.currentTarget).attr("data-tip-id");
 			tipBubbleView.render({id : id});
 			return false;
 		},
-		newTip: function() {
+		addTip: function() {
 			tipEditView.render({lesson_id : this.lesson_id});
 		},
 		editTip: function(e) {
-			var id = $(e).attr("data-tip-id");
+			var id = $(e.currentTarget).attr("data-tip-id");
 			tipEditView.render({id : id});
+			return false;
 		},
 		back: function(){
 			this.hide();
@@ -201,7 +200,7 @@
 		events : {
 			"click #saveBtn" : "saveTip",
 			"click #deleteBtn" : "deleteTip",
-			"click #cancelBtn" : "hide",
+			"click #cancelBtn" : "cancel",
 			"change #position" : "toggleSelector"
 		},
 		render: function(options){
@@ -210,14 +209,16 @@
 				var that = this;
 				that.tip.fetch({
 					success: function (tip) {
-					  that.$el.html(that.template({tip : tip}));
+						that.$el.html(that.template({tip : tip}));
+						that.toggleSelector();
+						that.$(".hrefButton").button();
 					}
 				});
 			} else {
 				this.$el.html(this.template({tip : ""}));
+				this.toggleSelector();
+				this.$(".hrefButton").button();
 			}
-			this.toggleSelector();
-			this.$(".hrefButton").button();
 		},
 		hide: function(){
 			this.$el.html("");
@@ -229,6 +230,11 @@
 			} else {
 				this.$("#selector").attr("disabled", "true");
 			}
+		},
+		cancel: function(){	
+			this.hide();
+			var lesson_id = this.tip.get("lesson_id");
+			tipListView.render({lesson_id : lesson_id});
 		},
 		saveTip : function(e){
 			var tipDetails = this.serialize();
@@ -246,7 +252,7 @@
 			});
 		},
 		deleteTip : function(e){
-			var lesson_id = this.tip.lesson_id;
+			var lesson_id = this.tip.get("lesson_id");
 			this.tip.destroy({
 				success : function(){
 					tipEditView.hide();
@@ -268,9 +274,14 @@
 		el: "#tipContainer",
 		template: window['JST']['templates/tip-bubble-template.html'],
 		render: function(options){
-			this.hide();
-			var tip = lesson.get(options.id);
-			this.$el.html(this.template({tip: tip.toJSON()}));
+			var that = this;
+			that.hide();
+			var tip = new Tip(options);
+			tip.fetch({
+				success: function(tip){
+					that.$el.html(that.template({tip: tip.toJSON()}));
+				}
+			});
 		},
 		hide: function(){
 			this.$el.html("");

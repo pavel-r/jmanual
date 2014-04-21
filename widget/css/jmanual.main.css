@@ -1,15 +1,17 @@
 /*Tip list template*/
-#allTips .ui-selecting { background: #FECA40; }
-#allTips .ui-selected { background: #F39814; color: white; }
-#allTips { list-style-type: none; margin: 0; padding: 0; }
-#allTips li { margin: 3px; padding: 0.4em;}
+.itemList .ui-selecting { background: #FECA40; }
+.itemList .ui-selected { background: #F39814; color: white; }
+.itemList { list-style-type: none; margin: 0; padding: 0; }
+.itemList li { margin: 3px; padding: 0.4em;}
+.itemList a { float: right;}
 
 /*Tip edit panel*/
-#detailsPanel .title-lbl {width: 100%; text-align: center;}
-#detailsPanel label {display: block; margin: 2px 0 2px 0;}
-#detailsPanel input {display: block; width: 100%;}
-#detailsPanel textarea {width: 100%;}
-#detailsPanel select {width: 100%;}
+.detailsPanel {border: 1px solid #AAAAAA; margin: 15px 3px 3px; padding: 0.4em;}
+.detailsPanel .title-lbl {width: 100%; text-align: center;}
+.detailsPanel label {display: block; margin: 2px 0 2px 0;}
+.detailsPanel input {display: block; width: 100%;}
+.detailsPanel textarea {width: 100%;}
+.detailsPanel select {width: 100%;}
 
 /*Tip bubble*/
 #msgWindow {position: absolute;}

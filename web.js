@@ -122,7 +122,7 @@ app.get('/:userid/client-app.js', function (request, response) {
 		contentStr = contentStr.replace('@domain@', domain);
 		response.send(contentStr);
 		console.log('Request processed');
-	});   
+	}); 
 });
 
 //get all lessons for manual
@@ -177,10 +177,14 @@ app.put('/:userid/lessons/:id', function(request, response) {
 app.delete('/:userid/lessons/:id', function(request, response) {
 	var id = request.params.id;
 	console.log('Deleting lesson with id ' + id);
-	p_db.collection('lessons').remove({_id: ObjectID(id)}, function(err, result){
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		//response.setHeader("Access-Control-Allow-Methods", "DELETE");
-		response.send('[]');
+	p_db.collection('tips').remove({lesson_id : ObjectID(id)}, function(err, result){
+		console.log(result + ' tips for lesson ' + id + ' deleted');
+		p_db.collection('lessons').remove({_id: ObjectID(id)}, function(err, result){
+			console.log('Lesson ' + id + ' deleted');
+			response.setHeader("Access-Control-Allow-Origin", "*");
+			//response.setHeader("Access-Control-Allow-Methods", "DELETE");
+			response.send('[]');
+		});
 	});
 });
 
@@ -237,11 +241,23 @@ app.post('/:userid/tips', function(request, response) {
 app.put('/:userid/tips/:id', function (request, response) {
     var id = request.params.id;
 	var tip = request.body;
+	tip.lesson_id = ObjectID(tip.lesson_id);
 	console.log('Updating tip with id ' + id + ': ' + JSON.stringify(tip));
 	p_db.collection('tips').update({_id : ObjectID(id)}, {$set: tip}, function(err, result){
 		console.log("Tip updated " + result);
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.send("[]");
+	});
+});
+
+//delete tip
+app.delete('/:userid/tips/:id', function(request, response) {
+	var id = request.params.id;
+	console.log('Deleting tip with id ' + id);
+	p_db.collection('tips').remove({_id: ObjectID(id)}, function(err, result){
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		//response.setHeader("Access-Control-Allow-Methods", "DELETE");
+		response.send('[]');
 	});
 });
 
