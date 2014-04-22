@@ -39,8 +39,8 @@
 	//API
 	Jmanual.showLessons = function(){
 		//reset current tip and lesson
-		Jmanual.Utils.setCookie("jTip", null, 365);
-		Jmanual.Utils.setCookie("jLesson", null, 365);
+		Jmanual.Utils.setCookie("jTip", "", 365);
+		Jmanual.Utils.setCookie("jLesson", "", 365);
 		tips = null;
 		//lessons = null;
 		
@@ -58,7 +58,7 @@
 	Jmanual.gotoLesson = function(lesson_id, lesson_name){
 		//set lesson and reset tip
 		Jmanual.Utils.setCookie("jLesson", lesson_id, 365);
-		Jmanual.Utils.setCookie("jTip", null, 365);
+		Jmanual.Utils.setCookie("jTip", "", 365);
 
 		//show tips
 		var errCallback = function (xhr, status) {
