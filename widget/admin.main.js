@@ -6,7 +6,6 @@ this["JManual.Domain"] = "@domain@";
         "//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js",
         "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js",
         "//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js",
-        "//cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.0/backbone.localStorage-min.js",
         "//code.jquery.com/ui/1.10.4/jquery-ui.js",
 		window["JManual.Domain"] + "/app/jmanual-admin.min.js"
     ];
