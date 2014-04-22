@@ -1,0 +1,9 @@
+<ol id="allLessons" class="itemList">
+	<% _.each(lessons, function(lesson) { %> 
+		<li class="">
+				<a href=# onclick="Jmanual.gotoLesson('<%=lesson.id%>', '<%=lesson.name%>')">
+					<span><%=lesson.name%></span>
+				</a>
+		</li>
+	<% }); %>
+</ol>
