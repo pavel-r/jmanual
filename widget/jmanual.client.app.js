@@ -8,9 +8,8 @@
 	var lessonTemplate = window['JST']['templates/client-lesson-template.html'];
 	var theTipTemplate = window['JST']['templates/tip-bubble-template.html'];
 
-	//var lessons = null;
     var tips = null;
-	
+
 	//data access
 	function getLessons(callbackSuccess, callbackError){
 		var url = domain + "/" + userID + "/lessons";
@@ -42,7 +41,7 @@
 		Jmanual.Utils.setCookie("jTip", "", 365);
 		Jmanual.Utils.setCookie("jLesson", "", 365);
 		tips = null;
-		//lessons = null;
+		$("#tipContainer").html("");
 		
 		//show lessons
 		var errCallback = function (xhr, status) {
@@ -72,7 +71,7 @@
 	};
 
 	Jmanual.beginTraining = function(){
-		Jmanual.Utils.setCookie("jTip", null, 365);
+		Jmanual.Utils.setCookie("jTip", "", 365);
 		Jmanual.nextTip();
 	};
 
@@ -93,13 +92,10 @@
 	Jmanual.nextTip = function () {
 			$("#tipContainer").html("");
 			var tipId = 1 * (Jmanual.Utils.getCookie("jTip") || -1 );
-			//if (tipId == null) {
-			//	tipId = 0;
-			//}
 			tipId++;
 			if(tipId >= tips.length){
 				alert('End of training');
-				Jmanual.Utils.setCookie("jTip", -1, 365);  
+				Jmanual.Utils.setCookie("jTip", "", 365);  
 				return;
 			}
 			if (showTip(tips[tipId])){
