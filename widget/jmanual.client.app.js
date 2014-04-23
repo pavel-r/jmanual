@@ -40,6 +40,7 @@
 		//reset current tip and lesson
 		Jmanual.Utils.setCookie("jTip", "", 365);
 		Jmanual.Utils.setCookie("jLesson", "", 365);
+		Jmanual.Utils.setCookie("jLessonName", "", 365);
 		tips = null;
 		$("#tipContainer").html("");
 		
@@ -57,7 +58,8 @@
 	Jmanual.gotoLesson = function(lesson_id, lesson_name){
 		//set lesson and reset tip
 		Jmanual.Utils.setCookie("jLesson", lesson_id, 365);
-		Jmanual.Utils.setCookie("jTip", "", 365);
+		Jmanual.Utils.setCookie("jLessonName", lesson_name, 365);
+		//Jmanual.Utils.setCookie("jTip", "", 365);
 
 		//show tips
 		var errCallback = function (xhr, status) {
@@ -127,7 +129,13 @@
 
 		//launch client app
 		$('body').append(clientPanelTemplate({domain : domain}));
-		Jmanual.showLessons();
+		var lesson_id = Jmanual.Utils.getCookie("jLesson");
+		var lesson_name = Jmanual.Utils.getCookie("jLessonName");
+		if(!lesson_id){
+			Jmanual.showLessons();
+		} else {
+			Jmanual.gotoLesson(lesson_id, lesson_name);
+		}
     });
 
 })();

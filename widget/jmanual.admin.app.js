@@ -7,22 +7,34 @@
 	Jmanual.closeTip = function(){};
 	Jmanual.nextTip = function(){};
 	
+	var proxiedSync = Backbone.sync;
+	Backbone.sync = function(method, model, options) {
+		options || (options = {});
+		if (!options.crossDomain) {
+			options.crossDomain = true;
+		}
+		//if (!options.xhrFields) {
+		//	options.xhrFields = {withCredentials:true};
+		//}
+		return proxiedSync(method, model, options);
+	};
+  
+	/*
 	$.ajaxPrefilter(function(options, originalOptions, jqXHR) {
 		options.crossDomain ={
 			crossDomain: true
 		};
-		/*
-		options.xhrFields = {
-			withCredentials: true
-		};
-		*/
+		//options.xhrFields = {
+		//	withCredentials: true
+		//};
 		options.url = domain + '/' + userID + options.url;
 	});
-
+	*/
+	
 	//////////// MODELS /////////////
 	
 	var Tip = Backbone.Model.extend({
-		urlRoot : "/tips"
+		urlRoot : domain + '/' + userID + "/tips"
 	});
 	
 	var Lesson = Backbone.Model.extend({
@@ -32,7 +44,7 @@
 	var Tips = Backbone.Collection.extend({
 		model: Tip,
 		url: function() {
-			var url = "/tips";
+			var url = domain + '/' + userID + "/tips";
 			if(this.lesson_id !== null){
 				url += ("?lesson_id=" + this.lesson_id);
 			}
@@ -42,7 +54,7 @@
 	
 	var Lessons = Backbone.Collection.extend({
 		model: Lesson,
-		url: "/lessons"
+		url: domain + '/' + userID + "/lessons"
 	});
 	
 	//////////// VIEWS /////////////
@@ -60,6 +72,7 @@
 			var lessons = new Lessons();
 			lessons.fetch({
 				success: function (lessons) {
+					Jmanual.Utils.setCookie("jLessonAdmin", "", 365); //reset lesson
 					that.$el.html(that.template({lessons: lessons.models}));
 					that.$(".hrefButton").button();
 				}
@@ -167,6 +180,7 @@
 			tips.lesson_id = this.lesson_id;
 			tips.fetch({
 				success: function (tips) {
+					Jmanual.Utils.setCookie("jLessonAdmin", tips.lesson_id, 365); //reset lesson
 					that.$el.html(that.template({tips : tips.models}));
 					that.$(".hrefButton").button();
 				}
@@ -297,7 +311,12 @@
 			tipListView = new TipListView();
 			tipEditView = new TipEditView();
 			tipBubbleView = new TipBubbleView();
-			lessonListView.render();
+			var lesson_id = Jmanual.Utils.getCookie("jLessonAdmin");
+			if(!lesson_id){
+				lessonListView.render();
+			} else {
+				tipListView.render({lesson_id : lesson_id});
+			}
 		},
 		render: function(){
 			this.$el.append(this.template());
