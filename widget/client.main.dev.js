@@ -3,20 +3,17 @@ this["JManual.Domain"] = "@domain@";
 
 (function() {
     var SCRIPTS = [         // the script filenames, in dependency order
-        "//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js",
-        "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js",
-		window["JManual.Domain"] + "/app/jmanual.common.core.js",
-        window["JManual.Domain"] + "/app/jmanual.common.utils.js",
-        window["JManual.Domain"] + "/app/jmanual.client.templates.js",
-        window["JManual.Domain"] + "/app/jmanual.client.app.js"
+        "<script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>\n",
+		"<script type='text/javascript'>$jm = jQuery.noConflict(true);</script>\n",
+        "<script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js'></script>\n",
+		"<script type='text/javascript' src='"+ window["JManual.Domain"] + "/app/jmanual.common.core.js" + "'></script>\n",
+        "<script type='text/javascript' src='" + window["JManual.Domain"] + "/app/jmanual.common.utils.js" + "'></script>\n",
+        "<script type='text/javascript' src='" + window["JManual.Domain"] + "/app/jmanual.client.templates.js" + "'></script>\n",
+        "<script type='text/javascript' src='" + window["JManual.Domain"] + "/app/jmanual.client.app.js" + "'></script>\n"
     ];
-    
     var html = [];
-    
     for (var i = 0; i < SCRIPTS.length; i++) {
-        html.push('<script type="text/javascript" src="');
         html.push(SCRIPTS[i]);
-        html.push('"></script>\n');
     }
     document.write(html.join(''));
 })();
