@@ -38,7 +38,7 @@
 	});
 	
 	var Lesson = Backbone.Model.extend({
-		urlRoot : "/lessons"
+		urlRoot : domain + '/' + userID + "/lessons"
 	});
 	
 	var Tips = Backbone.Collection.extend({
