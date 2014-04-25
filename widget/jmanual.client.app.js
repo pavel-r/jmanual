@@ -2,11 +2,11 @@
 
 	var domain = window["JManual.Domain"]; //"//54.186.137.81:5000";
 	var userID = window['JManual.UserId'];//"5331b155e4b03d6e48712e7f";
-	
+
 	var clientPanelTemplate = window['JST']['templates/client-panel-template.html'];
 	var lessonsListTemplate = window['JST']['templates/client-lessons-list-template.html'];
 	var lessonTemplate = window['JST']['templates/client-lesson-template.html'];
-	var theTipTemplate = window['JST']['templates/tip-bubble-template.html'];
+	var theTipTemplate = window['JST']['templates/client-tip-bubble-template.html'];
 
     var tips = null;
 
