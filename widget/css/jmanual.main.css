@@ -22,7 +22,7 @@
 .detailsPanel select {width: 100%;}
 
 /*Tip bubble*/
-#msgWindow {position: absolute;}
+#msgWindow {position: absolute; z-index: 999;}
 #msgWindow p {font-size: 12px;}
 #msgWindow.center{left: 50%; top: 50%;}
 #msgWindow.topLeft{left: 20px; top: 20px;}
