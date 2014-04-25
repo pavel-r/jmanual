@@ -13,7 +13,7 @@ if(position !== "nextTo"){
 	if(firstFound){
 		pCssClass = "triangle-isosceles top";
 		
-		var cssPos = (firstFound.elem === null ? null : $(firstFound.elem).offset());
+		var cssPos = (firstFound.elem === null ? null : $jm(firstFound.elem).offset());
 		cssPos.top += firstFound.offs.top;
 		cssPos.left += firstFound.offs.left;
 		cssPos.top += 15;

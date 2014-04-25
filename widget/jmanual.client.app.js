@@ -13,7 +13,7 @@
 	//data access
 	function getLessons(callbackSuccess, callbackError){
 		var url = domain + "/" + userID + "/lessons";
-		$.ajax({
+		$jm.ajax({
 				url: url,
 				type: "GET",
 				crossDomain: true,
@@ -25,7 +25,7 @@
 	
 	function getTips(callbackSuccess, callbackError, lesson_id){
 		var url = domain + "/" + userID + "/tips?lesson_id=" + lesson_id;
-		$.ajax({
+		$jm.ajax({
 				url: url,
 				type: "GET",
 				crossDomain: true,
@@ -42,7 +42,7 @@
 		Jmanual.Utils.setCookie("jLesson", "", 365);
 		Jmanual.Utils.setCookie("jLessonName", "", 365);
 		tips = null;
-		$("#tipContainer").html("");
+		$jm("#tipContainer").html("");
 		
 		//show lessons
 		var errCallback = function (xhr, status) {
@@ -50,7 +50,7 @@
 		};
 		var successCallback = function(data) {
 			//lessons = data;
-			$("#clientContainer").html(lessonsListTemplate({lessons: data}));
+			$jm("#clientContainer").html(lessonsListTemplate({lessons: data}));
 		};
 		getLessons(successCallback, errCallback);
 	};
@@ -67,7 +67,7 @@
 		};
 		var successCallback = function(data) {
 			tips = data;
-			$("#clientContainer").html(lessonTemplate({lesson_name : lesson_name}));
+			$jm("#clientContainer").html(lessonTemplate({lesson_name : lesson_name}));
 		};
 		getTips(successCallback, errCallback, lesson_id);
 	};
@@ -78,7 +78,7 @@
 	};
 
 	Jmanual.closeTip = function(){
-			$("#tipContainer").html("");
+			$jm("#tipContainer").html("");
 			var tipId = 1 * (Jmanual.Utils.getCookie("jTip") || -1 );
 			var tip = tips[tipId];
 			if(tipId + 1 >= tips.length){
@@ -92,7 +92,7 @@
 	};
 
 	Jmanual.nextTip = function () {
-			$("#tipContainer").html("");
+			$jm("#tipContainer").html("");
 			var tipId = 1 * (Jmanual.Utils.getCookie("jTip") || -1 );
 			tipId++;
 			if(tipId >= tips.length){
@@ -109,11 +109,11 @@
 		if (tip == null){
 			return false;
 		}
-		$("#tipContainer").html(theTipTemplate({tip: tip}));
+		$jm("#tipContainer").html(theTipTemplate({tip: tip}));
 		return true;
     }
 
-    $(window).load(function () {
+    $jm(window).load(function () {
 		//load css files
 		var STYLES = [         // the css filenames
 			"//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css",
@@ -125,10 +125,10 @@
 			html.push(STYLES[i]);
 			html.push('" type="text/css" rel="stylesheet"></link>\n');
 		}
-		$('head').append(html.join(''));
+		$jm('head').append(html.join(''));
 
 		//launch client app
-		$('body').append(clientPanelTemplate({domain : domain}));
+		$jm('body').append(clientPanelTemplate({domain : domain}));
 		var lesson_id = Jmanual.Utils.getCookie("jLesson");
 		var lesson_name = Jmanual.Utils.getCookie("jLessonName");
 		if(!lesson_id){

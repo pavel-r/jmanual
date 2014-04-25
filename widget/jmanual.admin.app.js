@@ -73,13 +73,13 @@
 			lessons.fetch({
 				success: function (lessons) {
 					Jmanual.Utils.setCookie("jLessonAdmin", "", 365); //reset lesson
-					that.$jm(el).html(that.template({lessons: lessons.models}));
-					that.$jm(".hrefButton").button();
+					that.$el.html(that.template({lessons: lessons.models}));
+					that.$(".hrefButton").button();
 				}
 			});
 		},
 		selectLesson: function(e){
-			var id = $jm(e.currentTarget).attr("data-lesson-id");
+			var id = this.$(e.currentTarget).attr("data-lesson-id");
 			this.hide();
 			tipListView.render({lesson_id : id});
 			return false;
@@ -89,13 +89,13 @@
 			lessonEditView.render({});
 		},
 		editLesson : function(e){
-			var id = $jm(e.currentTarget).attr("data-lesson-id");
+			var id = this.$(e.currentTarget).attr("data-lesson-id");
 			this.hide();
 			lessonEditView.render({id : id});
 			return false;
 		},
 		hide: function(){
-			this.$jm(el).html("");
+			this.$el.html("");
 		}
 	});
 	
@@ -113,14 +113,14 @@
 				that.lesson = new Lesson({id : options.id});
 				that.lesson.fetch({
 					success: function (lesson) {
-					  that.$jm(el).html(that.template({lesson : lesson}));
-					  that.$jm(".hrefButton").button();
+					  that.$el.html(that.template({lesson : lesson}));
+					  that.$(".hrefButton").button();
 					}
 				});
 			} else {
 				this.lesson = null;
-				this.$jm(el).html(this.template({lesson : ""}));
-				this.$jm(".hrefButton").button();
+				this.$el.html(this.template({lesson : ""}));
+				this.$(".hrefButton").button();
 			}
 		},
 		cancel : function(){
@@ -151,11 +151,11 @@
 		},
 		serialize: function(){
 			return {
-				name : this.$jm("#name").val()
+				name : this.$("#name").val()
 			};
 		},
 		hide: function(){
-			this.$jm(el).html("");
+			this.$el.html("");
 		}
 	});
 	
@@ -181,13 +181,13 @@
 			tips.fetch({
 				success: function (tips) {
 					Jmanual.Utils.setCookie("jLessonAdmin", tips.lesson_id, 365); //reset lesson
-					that.$jm(el).html(that.template({tips : tips.models}));
-					that.$jm(".hrefButton").button();
+					that.$el.html(that.template({tips : tips.models}));
+					that.$(".hrefButton").button();
 				}
 			});
 		},
 		selectTip: function(e) {
-			var id = $jm(e.currentTarget).attr("data-tip-id");
+			var id = this.$(e.currentTarget).attr("data-tip-id");
 			tipBubbleView.render({id : id});
 			return false;
 		},
@@ -195,7 +195,7 @@
 			tipEditView.render({lesson_id : this.lesson_id});
 		},
 		editTip: function(e) {
-			var id = $jm(e.currentTarget).attr("data-tip-id");
+			var id = this.$(e.currentTarget).attr("data-tip-id");
 			tipEditView.render({id : id});
 			return false;
 		},
@@ -204,7 +204,7 @@
 			lessonListView.render();
 		},
 		hide: function(){
-			this.$jm(el).html("");
+			this.$el.html("");
 		}
 	});
 	
@@ -223,26 +223,26 @@
 				var that = this;
 				that.tip.fetch({
 					success: function (tip) {
-						that.$jm(el).html(that.template({tip : tip}));
+						that.$el.html(that.template({tip : tip}));
 						that.toggleSelector();
-						that.$jm(".hrefButton").button();
+						that.$(".hrefButton").button();
 					}
 				});
 			} else {
-				this.$jm(el).html(this.template({tip : ""}));
+				this.$el.html(this.template({tip : ""}));
 				this.toggleSelector();
-				this.$jm(".hrefButton").button();
+				this.$(".hrefButton").button();
 			}
 		},
 		hide: function(){
-			this.$jm(el).html("");
+			this.$el.html("");
 		},
 		toggleSelector: function() {
-			var position = this.$jm("#position").val();
+			var position = this.$("#position").val();
 			if(position === "nextTo"){
-				this.$jm("#selector").removeAttr("disabled");
+				this.$("#selector").removeAttr("disabled");
 			} else {
-				this.$jm("#selector").attr("disabled", "true");
+				this.$("#selector").attr("disabled", "true");
 			}
 		},
 		cancel: function(){	
@@ -276,10 +276,10 @@
 		},
 		serialize: function(){
 			return {
-				selector : this.$jm("#selector").val(),
-				msg : this.$jm("#msg").val(),
-				doAfter: this.$jm("#doAfter").val(),
-				position: this.$jm("#position").val()
+				selector : this.$("#selector").val(),
+				msg : this.$("#msg").val(),
+				doAfter: this.$("#doAfter").val(),
+				position: this.$("#position").val()
 			};
 		}
 	});
@@ -293,12 +293,12 @@
 			var tip = new Tip(options);
 			tip.fetch({
 				success: function(tip){
-					that.$jm(el).html(that.template({tip: tip.toJSON()}));
+					that.$el.html(that.template({tip: tip.toJSON()}));
 				}
 			});
 		},
 		hide: function(){
-			this.$jm(el).html("");
+			this.$el.html("");
 		}
     });
 	
@@ -319,8 +319,8 @@
 			}
 		},
 		render: function(){
-			this.$jm(el).append(this.template());
-			$jm('#adminPanel').dialog();
+			this.$el.append(this.template());
+			this.$('#adminPanel').dialog();
 		}
 	});
     
