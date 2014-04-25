@@ -65,8 +65,8 @@ app.get('/mypage', function (request, response) {
 		var contentStr = content.toString();
 		contentStr = contentStr.replace('@user@', request.session.username);
 		contentStr = contentStr.replace('@sid@', request.sessionID);
-		contentStr = contentStr.replace('@adminfile@', domain + "/" + request.session.userid + "/admin/main.js");
-		contentStr = contentStr.replace('@clientfile@', domain + "/" + request.session.userid + "/client/main.js");
+		contentStr = contentStr.replace('@adminfile@', domain + "/" + request.session.userid + "/admin-app.js");
+		contentStr = contentStr.replace('@clientfile@', domain + "/" + request.session.userid + "/client-app.js");
 		response.send(contentStr);
     } else {
 		response.redirect('../login');
