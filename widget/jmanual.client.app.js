@@ -1,7 +1,7 @@
 (function(){
 
 	var domain = window["JManual.Domain"]; //"//54.186.137.81:5000";
-	var userID = window['JManual.UserId'];//"5331b155e4b03d6e48712e7f";
+	var userID = window["JManual.ClientUserId"];//"5331b155e4b03d6e48712e7f";
 
 	var clientPanelTemplate = window['JST']['templates/client-panel-template.html'];
 	var lessonsListTemplate = window['JST']['templates/client-lessons-list-template.html'];
