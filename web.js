@@ -20,7 +20,7 @@ var adminMain;
 app.configure('development', function(){
 	app.use('/app',express.static('widget'));
 	//domain = "//localhost:5000";
-	domain = "//ancient-gorge-2130.herokuapp.com/";
+	domain = "//ancient-gorge-2130.herokuapp.com";
 	clientMain = 'widget/client.main.dev.js';
 	adminMain = 'widget/admin.main.dev.js';
 });
