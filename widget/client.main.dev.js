@@ -1,4 +1,4 @@
-this["JManual.UserId"] = "@userId@";
+this["JManual.ClientUserId"] = "@userId@";
 this["JManual.Domain"] = "@domain@";
 
 (function() {
