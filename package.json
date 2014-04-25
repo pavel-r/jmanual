@@ -4,7 +4,7 @@
   "description": "a sample node.js app for heroku",
   "main": "web.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall" : "echo postinstall time; ./node_modules/grunt/bin/grunt"
   },
   "dependencies": {
     "express": "~3.4.x",
