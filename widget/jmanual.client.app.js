@@ -83,16 +83,19 @@
 			var tip = tips[tipId];
 			if(tipId + 1 >= tips.length){
 				alert('End of training');
-				Jmanual.Utils.setCookie("jTip", -1, 365);  
+				Jmanual.Utils.setCookie("jTip", "", 365);  
 				return;
 			}
 			if(tip.doAfter === 'nextTip'){
 				Jmanual.nextTip();
+			} else {
+				$jm("#nextBtn").css("color", "red");
 			}
 	};
 
 	Jmanual.nextTip = function () {
 			$jm("#tipContainer").html("");
+			$jm("#nextBtn").css("color", "");
 			var tipId = 1 * (Jmanual.Utils.getCookie("jTip") || -1 );
 			tipId++;
 			if(tipId >= tips.length){
