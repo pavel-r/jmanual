@@ -19,8 +19,8 @@ var adminMain;
 //development configuration
 app.configure('development', function(){
 	app.use('/app',express.static('widget'));
-	domain = "//localhost:5000";
-	//domain = "//ancient-gorge-2130.herokuapp.com";
+	//domain = "//localhost:5000";
+	domain = "//ancient-gorge-2130.herokuapp.com";
 	clientMain = 'widget/client.main.dev.js';
 	adminMain = 'widget/admin.main.dev.js';
 });
@@ -28,7 +28,8 @@ app.configure('development', function(){
 //production configuration
 app.configure('production', function(){
 	app.use('/app',express.static('build'));
-	domain = "//localhost:5000"; //ancient-gorge-2130.herokuapp.com"; //"//54.186.137.81:5000";
+	//domain = "//localhost:5000"; 
+	domain = "//ancient-gorge-2130.herokuapp.com"; //"//54.186.137.81:5000";
 	clientMain = 'widget/client.main.js';
 	adminMain = 'widget/admin.main.js';
 });
