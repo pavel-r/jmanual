@@ -46,8 +46,9 @@ Jmanual.Utils = function() {
 		return dims;
 	}
 
+    
 	//Methods
-	
+    var that = this;
 	this.getElem = function(selector, $root, elArray, offset) {
 		if (!$root) $root = $jm(document);
 		if (!offset) offset = {left : 0, top : 0};
@@ -61,7 +62,7 @@ Jmanual.Utils = function() {
 		$root.find('iframe,frame').each(function() {
 			// Recursively call the function, setting "$root" to the frame's document
 			var frameOffset = computeFrameOffset(this.contentWindow);
-			this.getElem(selector, $jm(this).contents(), elArray, frameOffset);
+			that.getElem(selector, $jm(this).contents(), elArray, frameOffset);
 		});
 		return elArray;
 	};
