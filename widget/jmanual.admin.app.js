@@ -14,7 +14,7 @@
 		//}
 		return proxiedSync(method, model, options);
 	};
-  
+	
 	/*
 	$jm.ajaxPrefilter(function(options, originalOptions, jqXHR) {
 		options.crossDomain ={
@@ -70,7 +70,7 @@
 				success: function (lessons) {
 					Jmanual.Utils.setCookie("jLessonAdmin", "", 365); //reset lesson
 					that.$el.html(that.template({lessons: lessons.models}));
-					that.$(".hrefButton").button();
+					//that.$(".hrefButton").button();
 				}
 			});
 		},
@@ -110,13 +110,13 @@
 				that.lesson.fetch({
 					success: function (lesson) {
 					  that.$el.html(that.template({lesson : lesson}));
-					  that.$(".hrefButton").button();
+					  //that.$(".hrefButton").button();
 					}
 				});
 			} else {
 				this.lesson = null;
 				this.$el.html(this.template({lesson : ""}));
-				this.$(".hrefButton").button();
+				//this.$(".hrefButton").button();
 			}
 		},
 		cancel : function(){
@@ -178,8 +178,34 @@
 				success: function (tips) {
 					Jmanual.Utils.setCookie("jLessonAdmin", tips.lesson_id, 365); //reset lesson
 					that.$el.html(that.template({tips : tips.models}));
-					that.$(".hrefButton").button();
+					that.$('#allTips').sortable({
+						start: function(e, ui) {
+							// creates a temporary attribute on the element with the old index
+							that.$(this).attr('data-previndex', ui.item.index());
+						},
+						stop: function(e, ui) {
+							// gets the new and old index then removes the temporary attribute
+							var newIndex = ui.item.index();
+							var oldIndex = that.$(this).attr('data-previndex');
+							that.$(this).removeAttr('data-previndex');
+							that.changeTipIdx(tips.lesson_id, oldIndex, newIndex);
+						}
+					});
+					//that.$(".hrefButton").button();
 				}
+			});
+		},
+		changeTipIdx: function(lesson_id, idx_from, idx_to, callback){
+			var url = domain + "/" + userID + "/tips/changeTipOrder?";
+			url += ("lesson_id=" + lesson_id + "&");
+			url += ("idx_from=" + idx_from + "&");
+			url += ("idx_to=" + idx_to);
+			$jm.ajax({
+				url: url,
+				type: "POST",
+				crossDomain: true,
+				dataType: "json",
+				success: callback
 			});
 		},
 		selectTip: function(e) {
@@ -221,13 +247,13 @@
 					success: function (tip) {
 						that.$el.html(that.template({tip : tip}));
 						that.toggleSelector();
-						that.$(".hrefButton").button();
+						//that.$(".hrefButton").button();
 					}
 				});
 			} else {
 				this.$el.html(this.template({tip : ""}));
 				this.toggleSelector();
-				this.$(".hrefButton").button();
+				//this.$(".hrefButton").button();
 			}
 		},
 		hide: function(){
