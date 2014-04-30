@@ -19,19 +19,26 @@
 		<div style="color: #F3961C; font-size: 26px;">Hello <span id="username">@user@</span></div>
 		<input type="hidden" id="sid" value="@sid@"/>
 		<div>
+			<h3>Create user manuals for your web application</h3>
 			<p>
-			<label>In order to create user manual for your web application you should include the following script into the web page:</label>
+			<label>1. Include the following script into the web page:</label>
 			<label>@adminfile@</label>
-			<label>You will then see a panel which will allow you to add user training material.</label>
+			<label>You should then see the following panel on your page:</label>
+			<img src="/img/admin_panel.png"/>
+			<label>This is Administration panel which is used to create user manuals.</label>
 			</p>
 			<p>
-			<label>If you do it first time, we recommend including training manual as well:</label>
+			<label>2. If you use jManual the first time, include the following script as well:</label>
 			<label>//ancient-gorge-2130.herokuapp.com/5331b155e4b03d6e48712e7f/client-app.js</label>
-			<label>It will help you to figure out fast how to create manuals.</label>
+			<label>You should then see the following panel in the top right corner:</label>
+			<img src="/img/client_panel.png"/>
+			<label>It is Client panel. It contains a jManual lesson on how to create user manuals.</label>
+			<label>To begin the lesson click on its name "jManual" and then click "Begin training"</label>
 			</p>
+			<h3>Integrate user manual into your web application</h3>
 			<label>After you are done with creating manual, remove scripts added before and put this one:</label>
 			<label>@clientfile@</label>
-			<label>It will allow your users to go through lessons you have created.</label>
+			<label>You will then see the same Client panel, but with the list of lessons you have created.</label>
 		</div>
 	</div>
 	<div style="position: absolute; right: 20px; top: 0px; padding: 5px; background: #F3961C;">
