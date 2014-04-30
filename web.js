@@ -19,8 +19,9 @@ var adminMain;
 //development configuration
 app.configure('development', function(){
 	app.use('/app',express.static('widget'));
-	//domain = "//localhost:5000";
-	domain = "//ancient-gorge-2130.herokuapp.com";
+	app.use('/img',express.static('img'));
+    //domain = "//localhost:5000";
+    domain = "//ancient-gorge-2130.herokuapp.com";
 	clientMain = 'widget/client.main.dev.js';
 	adminMain = 'widget/admin.main.dev.js';
 });
@@ -28,8 +29,9 @@ app.configure('development', function(){
 //production configuration
 app.configure('production', function(){
 	app.use('/app',express.static('build'));
-	//domain = "//localhost:5000"; 
-	domain = "//ancient-gorge-2130.herokuapp.com"; //"//54.186.137.81:5000";
+    //domain = "//localhost:5000"; 
+    domain = "//ancient-gorge-2130.herokuapp.com"; 
+    //domain = "//54.186.137.81:5000";
 	clientMain = 'widget/client.main.js';
 	adminMain = 'widget/admin.main.js';
 });
@@ -209,13 +211,42 @@ app.options('/:userid/lessons', function(request, response){
 app.get('/:userid/tips', function (request, response) {
 		var lesson_id = request.query.lesson_id;
 		console.log('Getting all tips for lession: ' + lesson_id);
-		p_db.collection('tips').find({lesson_id : ObjectID(lesson_id)}).toArray(function(err, tips){
+		p_db.collection('tips').find({lesson_id : ObjectID(lesson_id)}).sort({ idx : 1 }).toArray(function(err, tips){
 			response.setHeader("Access-Control-Allow-Origin", "*");
 			response.send(tips);
 			console.log('Tips found: ' + JSON.stringify(tips));
 		});
 });
 
+//change tip position in lesson
+app.post('/:userid/tips/changeTipOrder', function(request, response) {
+	var lesson_id = request.query.lesson_id;
+	var idx_from = parseInt(request.query.idx_from);
+	var idx_to = parseInt(request.query.idx_to);
+	console.log("Changing tip idx in lesson " + lesson_id + " from " + idx_from + " to " + idx_to);
+	p_db.collection('tips').findOne({lesson_id : ObjectID(lesson_id), idx : idx_from}, function(err, tip){
+		console.log("Tip to move " + JSON.stringify(tip));
+		if(idx_from < idx_to) {
+			p_db.collection('tips').update({lesson_id : ObjectID(lesson_id), idx : {$gt : idx_from, $lt : idx_to + 1}}, { $inc: { idx : -1 }}, { multi: true }, function(err, result){
+				p_db.collection('tips').update({_id: tip._id}, {$set : {idx : idx_to}}, function(err, result) {
+					response.setHeader("Access-Control-Allow-Origin", "*");
+					response.send("[]");
+					console.log("Tip moved");
+				});
+			});
+		} else if (idx_from > idx_to) {
+			p_db.collection('tips').update({lesson_id : ObjectID(lesson_id), idx : {$gt : idx_to - 1, $lt : idx_from}}, { $inc: { idx : 1 }}, { multi: true }, function(err, result){
+				p_db.collection('tips').update({_id: tip._id}, {$set : {idx : idx_to}}, function(err, result) {
+					response.setHeader("Access-Control-Allow-Origin", "*");
+					response.send("[]");
+					console.log("Tip moved");
+				});
+			});
+		}
+	});
+});
+
+//get tip by id
 app.get('/:userid/tips/:id', function(request, response) {
 	var id = request.params.id;
 	console.log('Incoming get request for tip with id: ' + id);
@@ -232,10 +263,14 @@ app.post('/:userid/tips', function(request, response) {
 	var tip = request.body;
 	tip.lesson_id = ObjectID(tip.lesson_id);
 	console.log('Adding tip: ' + JSON.stringify(tip));
-	p_db.collection('tips').insert(tip, function(err, result){
-		console.log('Tip added');
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.send('[]');
+	p_db.collection('tips').find({lesson_id : tip.lesson_id}).toArray(function(err, tips){
+			tip.idx = tips.length;
+			console.log('Set tip idx: ' + tip.idx);
+			p_db.collection('tips').insert(tip, function(err, result){
+				console.log('Tip added');
+				response.setHeader("Access-Control-Allow-Origin", "*");
+				response.send('[]');
+			});
 	});
 });
 
@@ -256,10 +291,14 @@ app.put('/:userid/tips/:id', function (request, response) {
 app.delete('/:userid/tips/:id', function(request, response) {
 	var id = request.params.id;
 	console.log('Deleting tip with id ' + id);
-	p_db.collection('tips').remove({_id: ObjectID(id)}, function(err, result){
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		//response.setHeader("Access-Control-Allow-Methods", "DELETE");
-		response.send('[]');
+	p_db.collection('tips').findOne({_id: ObjectID(id)}, function(err, tip){
+		p_db.collection('tips').update({lesson_id : tip.lesson_id, idx : {$gt : tip.idx}}, { $inc: { idx : -1 } }, function(err, result){
+			p_db.collection('tips').remove({_id: ObjectID(id)}, function(err, result){
+				response.setHeader("Access-Control-Allow-Origin", "*");
+				//response.setHeader("Access-Control-Allow-Methods", "DELETE");
+				response.send('[]');
+			});
+		});
 	});
 });
 
