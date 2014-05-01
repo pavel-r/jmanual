@@ -47,7 +47,7 @@ Jmanual.Utils = function() {
 	}
 
 	//Methods
-	
+	var that = this;
 	this.getElem = function(selector, $root, elArray, offset) {
 		if (!$root) $root = $jm(document);
 		if (!offset) offset = {left : 0, top : 0};
@@ -55,13 +55,17 @@ Jmanual.Utils = function() {
 		// Select all elements matching the selector under the root
 		var firstFound = $root.find(selector)[0];
 		if(firstFound){
-			elArray.push({elem : firstFound, offs : offset});
+			var size = {
+				height : $(firstFound).outerHeight(),
+				width : $(firstFound).outerWidth()
+			};
+			elArray.push({elem : firstFound, offs : offset, size: size});
 		}
 		// Loop through all frames
 		$root.find('iframe,frame').each(function() {
 			// Recursively call the function, setting "$root" to the frame's document
 			var frameOffset = computeFrameOffset(this.contentWindow);
-			this.getElem(selector, $jm(this).contents(), elArray, frameOffset);
+			that.getElem(selector, $jm(this).contents(), elArray, frameOffset);
 		});
 		return elArray;
 	};
@@ -86,6 +90,9 @@ Jmanual.Utils = function() {
 		return "";
     };
 
+	this.eventInsideRect = function(event, rect){
+		
+	}
 };
 
 //Utils should be singleton. Make singleton instance

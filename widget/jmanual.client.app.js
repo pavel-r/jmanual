@@ -2,7 +2,8 @@
 
 	var domain = window["JManual.Domain"]; //"//54.186.137.81:5000";
 	var userID = window["JManual.ClientUserId"];//"5331b155e4b03d6e48712e7f";
-
+	var cookieExp = 1; //days
+	
 	var clientPanelTemplate = window['JST']['templates/client-panel-template.html'];
 	var lessonsListTemplate = window['JST']['templates/client-lessons-list-template.html'];
 	var lessonTemplate = window['JST']['templates/client-lesson-template.html'];
@@ -10,6 +11,16 @@
 
     var tips = null;
 
+	//guarding functionality. should be isolated
+	var isGuarding = false;
+	function guardMouseMove(event){
+		if(isGuarding){
+			
+		}
+	}
+	
+	//end guarding functionality
+	
 	//data access
 	function getLessons(callbackSuccess, callbackError){
 		var url = domain + "/" + userID + "/lessons";
@@ -38,9 +49,9 @@
 	//API
 	Jmanual.showLessons = function(){
 		//reset current tip and lesson
-		Jmanual.Utils.setCookie("jTip", "", 365);
-		Jmanual.Utils.setCookie("jLesson", "", 365);
-		Jmanual.Utils.setCookie("jLessonName", "", 365);
+		Jmanual.Utils.setCookie("jTip", "", cookieExp);
+		Jmanual.Utils.setCookie("jLesson", "", cookieExp);
+		Jmanual.Utils.setCookie("jLessonName", "", cookieExp);
 		tips = null;
 		$jm("#tipContainer").html("");
 		
@@ -57,9 +68,9 @@
 	
 	Jmanual.gotoLesson = function(lesson_id, lesson_name){
 		//set lesson and reset tip
-		Jmanual.Utils.setCookie("jLesson", lesson_id, 365);
-		Jmanual.Utils.setCookie("jLessonName", lesson_name, 365);
-		//Jmanual.Utils.setCookie("jTip", "", 365);
+		Jmanual.Utils.setCookie("jLesson", lesson_id, cookieExp);
+		Jmanual.Utils.setCookie("jLessonName", lesson_name, cookieExp);
+		//Jmanual.Utils.setCookie("jTip", "", cookieExp);
 
 		//show tips
 		var errCallback = function (xhr, status) {
@@ -73,7 +84,7 @@
 	};
 
 	Jmanual.beginTraining = function(){
-		Jmanual.Utils.setCookie("jTip", "", 365);
+		Jmanual.Utils.setCookie("jTip", "", cookieExp);
 		Jmanual.nextTip();
 	};
 
@@ -83,7 +94,7 @@
 			var tip = tips[tipId];
 			if(tipId + 1 >= tips.length){
 				alert('End of training');
-				Jmanual.Utils.setCookie("jTip", "", 365);  
+				Jmanual.Utils.setCookie("jTip", "", cookieExp);  
 				return;
 			}
 			if(tip.doAfter === 'nextTip'){
@@ -100,11 +111,11 @@
 			tipId++;
 			if(tipId >= tips.length){
 				alert('End of training');
-				Jmanual.Utils.setCookie("jTip", "", 365);  
+				Jmanual.Utils.setCookie("jTip", "", cookieExp);  
 				return;
 			}
 			if (showTip(tips[tipId])){
-				Jmanual.Utils.setCookie("jTip", tipId, 365);
+				Jmanual.Utils.setCookie("jTip", tipId, cookieExp);
 			}
 	};
 	

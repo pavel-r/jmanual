@@ -6,6 +6,14 @@
 	background: #FFFFFF;
 }
 
+/*Guard div that prevent click actions on the restricted areas*/
+#actionGuard {
+	width: 10px; height: 10px; 
+	z-index: 998;
+	position: absolute; 
+	background: red;
+}
+
 /*Tip list template*/
 .itemList .ui-selecting { background: #FECA40; }
 .itemList .ui-selected { background: #F39814; color: white; }
