@@ -13,9 +13,28 @@
 
 	//guarding functionality. should be isolated
 	var isGuarding = false;
+	var element = null;
+	
+	function stopGuarding(){
+		isGuarding = false;
+		element = null;
+		$("#actionGuard").offset({ top: 0, left: 0});
+	}
+	
+	function startGuarding(options){
+		if(options.selector){
+			element = options.selector;
+		}
+		isGuarding = true;
+	}
+	
 	function guardMouseMove(event){
 		if(isGuarding){
-			
+			if(element && Jmanual.Utils.eventInsideElement(event, element)){
+				$("#actionGuard").offset({ top: 0, left: 0});
+			} else {
+				$("#actionGuard").offset({ top: event.pageY - 20, left: event.pageX - 20});
+			}
 		}
 	}
 	
@@ -90,6 +109,7 @@
 
 	Jmanual.closeTip = function(){
 			$jm("#tipContainer").html("");
+			stopGuarding();
 			var tipId = 1 * (Jmanual.Utils.getCookie("jTip") || -1 );
 			var tip = tips[tipId];
 			if(tipId + 1 >= tips.length){
@@ -101,10 +121,14 @@
 				Jmanual.nextTip();
 			} else {
 				$jm("#nextBtn").css("color", "red");
+				if(tip.allowedArea){
+					startGuarding({selector : tip.allowedArea});
+				}
 			}
 	};
 
 	Jmanual.nextTip = function () {
+			stopGuarding();
 			$jm("#tipContainer").html("");
 			$jm("#nextBtn").css("color", "");
 			var tipId = 1 * (Jmanual.Utils.getCookie("jTip") || -1 );
@@ -116,6 +140,7 @@
 			}
 			if (showTip(tips[tipId])){
 				Jmanual.Utils.setCookie("jTip", tipId, cookieExp);
+				startGuarding({});
 			}
 	};
 	
@@ -150,6 +175,7 @@
 		} else {
 			Jmanual.gotoLesson(lesson_id, lesson_name);
 		}
+		$(document).mousemove(guardMouseMove);
     });
 
 })();

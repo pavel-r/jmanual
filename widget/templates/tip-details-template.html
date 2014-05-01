@@ -18,11 +18,13 @@
 						<option value="close" <%=(tip && tip.get("doAfter") === "close") ? "selected=" : ""%>>Close</option>
 						<option value="nextTip" <%=(tip && tip.get("doAfter") === "nextTip") ? "selected=" : ""%>>Show next tip</option>
 					</select>
+					<label>Restric action except for:</label>
+					<input type="text" id="allowedArea" value="<%=tip ? tip.get("allowedArea") : ""%>"/>
 					<label></label>
 					<a class="hrefButton" id="saveBtn" href=#>Save</a>
 					<% if(tip) { %>
 					<a class="hrefButton" id="deleteBtn" href=#>Delete</a>
 					<% };%>
-					<a class="hrefButton" id="cancelBtn" href=#">Cancel</a>
+					<a class="hrefButton" id="cancelBtn" href=#>Cancel</a>
 </div>
 

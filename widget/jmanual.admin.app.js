@@ -170,7 +170,9 @@
 			//this.listenTo(lesson, "remove", this.render);
 		},
 		render: function(options){
-			this.lesson_id = options.lesson_id;
+			if(options.lesson_id) {
+				this.lesson_id = options.lesson_id;
+			}
 			var that = this;
 			var tips = new Tips();
 			tips.lesson_id = this.lesson_id;
@@ -185,17 +187,18 @@
 						},
 						stop: function(e, ui) {
 							// gets the new and old index then removes the temporary attribute
-							var newIndex = ui.item.index();
+							var newIndex = ui.item.index()+"";
 							var oldIndex = that.$(this).attr('data-previndex');
 							that.$(this).removeAttr('data-previndex');
-							that.changeTipIdx(tips.lesson_id, oldIndex, newIndex);
+							that.changeTipOrder(tips.lesson_id, oldIndex, newIndex);
 						}
 					});
 					//that.$(".hrefButton").button();
 				}
 			});
 		},
-		changeTipIdx: function(lesson_id, idx_from, idx_to, callback){
+		changeTipOrder: function(lesson_id, idx_from, idx_to, callback){
+			if(idx_from === idx_to) return;
 			var url = domain + "/" + userID + "/tips/changeTipOrder?";
 			url += ("lesson_id=" + lesson_id + "&");
 			url += ("idx_from=" + idx_from + "&");
@@ -214,10 +217,12 @@
 			return false;
 		},
 		addTip: function() {
+			this.hide();
 			tipEditView.render({lesson_id : this.lesson_id});
 		},
 		editTip: function(e) {
 			var id = this.$(e.currentTarget).attr("data-tip-id");
+			this.hide();
 			tipEditView.render({id : id});
 			return false;
 		},
@@ -237,7 +242,8 @@
 			"click #saveBtn" : "saveTip",
 			"click #deleteBtn" : "deleteTip",
 			"click #cancelBtn" : "cancel",
-			"change #position" : "toggleSelector"
+			"change #position" : "toggleSelector",
+			"change #doAfter" : "toggleAllowedArea"
 		},
 		render: function(options){
 			this.tip = new Tip(options);
@@ -265,12 +271,21 @@
 				this.$("#selector").removeAttr("disabled");
 			} else {
 				this.$("#selector").attr("disabled", "true");
+				this.$("#selector").val("");
+			}
+		},
+		toggleAllowedArea: function() {
+			var doAfter = this.$("#doAfter").val();
+			if(doAfter === "close"){
+				this.$("#allowedArea").removeAttr("disabled");
+			} else {
+				this.$("#allowedArea").attr("disabled", "true");
+				this.$("#allowedArea").val("");
 			}
 		},
 		cancel: function(){	
 			this.hide();
-			var lesson_id = this.tip.get("lesson_id");
-			tipListView.render({lesson_id : lesson_id});
+			tipListView.render({});
 		},
 		saveTip : function(e){
 			var tipDetails = this.serialize();
@@ -283,16 +298,15 @@
 			tip.save(tipDetails, {
 				success: function(tip){
 					tipEditView.hide();
-					tipListView.render({lesson_id : tipDetails.lesson_id});
+					tipListView.render({});
 				}
 			});
 		},
 		deleteTip : function(e){
-			var lesson_id = this.tip.get("lesson_id");
 			this.tip.destroy({
 				success : function(){
 					tipEditView.hide();
-					tipListView.render({lesson_id : lesson_id});
+					tipListView.render({});
 				}
 			});
 		},
@@ -301,7 +315,8 @@
 				selector : this.$("#selector").val(),
 				msg : this.$("#msg").val(),
 				doAfter: this.$("#doAfter").val(),
-				position: this.$("#position").val()
+				position: this.$("#position").val(),
+				allowedArea: this.$("#allowedArea").val()
 			};
 		}
 	});

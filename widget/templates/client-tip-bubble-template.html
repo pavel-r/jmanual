@@ -16,7 +16,7 @@ if(position !== "nextTo"){
 		var cssPos = (firstFound.elem === null ? null : $jm(firstFound.elem).offset());
 		cssPos.top += firstFound.offs.top;
 		cssPos.left += firstFound.offs.left;
-		cssPos.top += 15;
+		cssPos.top += $jm(firstFound.elem).outerHeight();
 		cssStyle += ("left:" + cssPos.left + "px;");
 		cssStyle += ("top:" + cssPos.top + "px;");
 	} else {

@@ -46,6 +46,7 @@ Jmanual.Utils = function() {
 		return dims;
 	}
 
+    
 	//Methods
 	var that = this;
 	this.getElem = function(selector, $root, elArray, offset) {
@@ -55,11 +56,7 @@ Jmanual.Utils = function() {
 		// Select all elements matching the selector under the root
 		var firstFound = $root.find(selector)[0];
 		if(firstFound){
-			var size = {
-				height : $(firstFound).outerHeight(),
-				width : $(firstFound).outerWidth()
-			};
-			elArray.push({elem : firstFound, offs : offset, size: size});
+			elArray.push({elem : firstFound, offs : offset});
 		}
 		// Loop through all frames
 		$root.find('iframe,frame').each(function() {
@@ -90,8 +87,21 @@ Jmanual.Utils = function() {
 		return "";
     };
 
-	this.eventInsideRect = function(event, rect){
-		
+	this.eventInsideElement = function(event, element){
+		if(!element) return false;
+		var firstFound = this.getElem(element)[0];
+		if(!firstFound) return false;
+		var left = $jm(firstFound.elem).offset().left + firstFound.offs.left;
+		var top = $jm(firstFound.elem).offset().top + firstFound.offs.top;
+		var right = left + $(firstFound.elem).outerWidth();
+		var bottom = top + $(firstFound.elem).outerHeight();
+		if(event.pageX < left ||
+		   event.pageX > right ||
+		   event.pageY < top ||
+		   event.pageY > bottom){
+			return false;
+		}
+		return true;
 	}
 };
 
