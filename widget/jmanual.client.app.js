@@ -27,7 +27,7 @@
 		}
 		isGuarding = true;
 	}
-	
+	/*
 	function guardMouseMove(event){
 		if(isGuarding){
 			if(element && Jmanual.Utils.eventInsideElement(event, element)){
@@ -37,7 +37,7 @@
 			}
 		}
 	}
-	
+	*/
 	//end guarding functionality
 	
 	//data access
@@ -175,7 +175,7 @@
 		} else {
 			Jmanual.gotoLesson(lesson_id, lesson_name);
 		}
-		$(document).mousemove(guardMouseMove);
+		Jmanual.Utils.assignMousemoveEvent();
     });
 
 })();

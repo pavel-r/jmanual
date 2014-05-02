@@ -46,6 +46,19 @@ Jmanual.Utils = function() {
 		return dims;
 	}
 
+	function getGuardFunction(offset){
+		return function(event){
+			event.pageX += offset.left;
+			event.pageY += offset.top;
+			if(isGuarding){
+				if(element && Jmanual.Utils.eventInsideElement(event, element)){
+					$("#actionGuard").offset({ top: 0, left: 0});
+				} else {
+					$("#actionGuard").offset({ top: event.pageY - 20, left: event.pageX - 20});
+				}
+			}
+		};
+	}
     
 	//Methods
 	var that = this;
@@ -66,6 +79,18 @@ Jmanual.Utils = function() {
 		});
 		return elArray;
 	};
+	
+	this.assignMousemoveEvent = function($root, offset){
+		if (!$root) $root = $jm(document);
+		if (!offset) offset = {left : 0, top : 0};
+		$root.mousemove(getGuardFunction(offset));
+		// Loop through all frames
+		$root.find('iframe,frame').each(function() {
+			// Recursively call the function, setting "$root" to the frame's document
+			var frameOffset = computeFrameOffset(this.contentWindow);
+			that.assignMousemoveEvent($jm(this).contents(), frameOffset);
+		});
+	}
 	
 	this.setCookie = function(cname,cvalue,exdays)
     {
@@ -103,6 +128,7 @@ Jmanual.Utils = function() {
 		}
 		return true;
 	}
+	
 };
 
 //Utils should be singleton. Make singleton instance
