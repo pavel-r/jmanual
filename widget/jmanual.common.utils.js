@@ -86,7 +86,7 @@ Jmanual.Utils = function() {
 	this.stopGuarding = function(){
 		isGuarding = false;
 		element = null;
-		$("#actionGuard").offset({ top: 0, left: 0});
+	    $jm("#actionGuard").offset({ top: 0, left: 0});
 	};
 	
 	this.startGuarding = function(options){
