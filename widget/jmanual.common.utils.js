@@ -90,7 +90,7 @@ Jmanual.Utils = function() {
 			var frameOffset = computeFrameOffset(this.contentWindow);
 			that.assignMousemoveEvent($jm(this).contents(), frameOffset);
 		});
-	}
+	};
 	
 	this.setCookie = function(cname,cvalue,exdays)
     {
@@ -127,7 +127,7 @@ Jmanual.Utils = function() {
 			return false;
 		}
 		return true;
-	}
+	};
 	
 };
 

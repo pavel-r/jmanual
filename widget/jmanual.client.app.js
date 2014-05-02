@@ -166,7 +166,6 @@
 	}
 	$jm('head').append(html.join(''));
 
-<<<<<<< HEAD
 	//launch client app
 	$jm('body').append(clientPanelTemplate({domain : domain}));
 	var lesson_id = Jmanual.Utils.getCookie("jLesson");
@@ -176,25 +175,8 @@
 	} else {
 	    Jmanual.gotoLesson(lesson_id, lesson_name);
 	}
-	$jm("body").mousemove(guardMouseMove);
-	$('iframe').contents().on({
-	    mousemove: function(event) {
-		guardMouseMove(event);
-	    }
+	Jmanual.Utils.assignMousemoveEvent();
 
-	});
-=======
-		//launch client app
-		$jm('body').append(clientPanelTemplate({domain : domain}));
-		var lesson_id = Jmanual.Utils.getCookie("jLesson");
-		var lesson_name = Jmanual.Utils.getCookie("jLessonName");
-		if(!lesson_id){
-			Jmanual.showLessons();
-		} else {
-			Jmanual.gotoLesson(lesson_id, lesson_name);
-		}
-		Jmanual.Utils.assignMousemoveEvent();
->>>>>>> 55bea824c4b18305a972f64f8379e0633a20981f
     });
 
 })();
