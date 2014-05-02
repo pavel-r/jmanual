@@ -134,8 +134,8 @@ Jmanual.Utils = function() {
 		if(!firstFound) return false;
 		var left = $jm(firstFound.elem).offset().left + firstFound.offs.left;
 		var top = $jm(firstFound.elem).offset().top + firstFound.offs.top;
-		var right = left + $(firstFound.elem).outerWidth();
-		var bottom = top + $(firstFound.elem).outerHeight();
+		var right = left + $jm(firstFound.elem).outerWidth();
+		var bottom = top + $jm(firstFound.elem).outerHeight();
 		if(event.pageX < left ||
 		   event.pageX > right ||
 		   event.pageY < top ||
