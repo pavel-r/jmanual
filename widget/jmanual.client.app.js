@@ -27,7 +27,7 @@
 	}
 	isGuarding = true;
     }
-    
+    /*
     function guardMouseMove(event){
 	if(isGuarding){
 	    if(element && Jmanual.Utils.eventInsideElement(event, element)){
@@ -37,7 +37,7 @@
 	    }
 	}
     }
-	
+    */
 	//end guarding functionality
 	
 	//data access
@@ -166,6 +166,7 @@
 	}
 	$jm('head').append(html.join(''));
 
+<<<<<<< HEAD
 	//launch client app
 	$jm('body').append(clientPanelTemplate({domain : domain}));
 	var lesson_id = Jmanual.Utils.getCookie("jLesson");
@@ -182,6 +183,18 @@
 	    }
 
 	});
+=======
+		//launch client app
+		$jm('body').append(clientPanelTemplate({domain : domain}));
+		var lesson_id = Jmanual.Utils.getCookie("jLesson");
+		var lesson_name = Jmanual.Utils.getCookie("jLessonName");
+		if(!lesson_id){
+			Jmanual.showLessons();
+		} else {
+			Jmanual.gotoLesson(lesson_id, lesson_name);
+		}
+		Jmanual.Utils.assignMousemoveEvent();
+>>>>>>> 55bea824c4b18305a972f64f8379e0633a20981f
     });
 
 })();
