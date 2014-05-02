@@ -15,28 +15,28 @@
 	var isGuarding = false;
 	var element = null;
 	
-	function stopGuarding(){
-		isGuarding = false;
-		element = null;
-		$("#actionGuard").offset({ top: 0, left: 0});
+    function stopGuarding(){
+	isGuarding = false;
+	element = null;
+	$jm("#actionGuard").offset({ top: 0, left: 0});
+    }
+    
+    function startGuarding(options){
+	if(options.selector){
+	    element = options.selector;
 	}
-	
-	function startGuarding(options){
-		if(options.selector){
-			element = options.selector;
-		}
-		isGuarding = true;
+	isGuarding = true;
+    }
+    
+    function guardMouseMove(event){
+	if(isGuarding){
+	    if(element && Jmanual.Utils.eventInsideElement(event, element)){
+		$jm("#actionGuard").offset({ top: 0, left: 0});
+	    } else {
+		$jm("#actionGuard").offset({ top: event.pageY - 20, left: event.pageX - 20});
+	    }
 	}
-	
-	function guardMouseMove(event){
-		if(isGuarding){
-			if(element && Jmanual.Utils.eventInsideElement(event, element)){
-				$("#actionGuard").offset({ top: 0, left: 0});
-			} else {
-				$("#actionGuard").offset({ top: event.pageY - 20, left: event.pageX - 20});
-			}
-		}
-	}
+    }
 	
 	//end guarding functionality
 	
@@ -153,29 +153,29 @@
     }
 
     $jm(window).load(function () {
-		//load css files
-		var STYLES = [         // the css filenames
-			"//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css",
-			domain + "/app/css/jmanual.main.css"
-		];
-		var html = [];
-		for (var i = 0; i < STYLES.length; i++) {
-			html.push('<link href="');
-			html.push(STYLES[i]);
-			html.push('" type="text/css" rel="stylesheet"></link>\n');
-		}
-		$jm('head').append(html.join(''));
+	//load css files
+	var STYLES = [         // the css filenames
+	    "//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css",
+	    domain + "/app/css/jmanual.main.css"
+	];
+	var html = [];
+	for (var i = 0; i < STYLES.length; i++) {
+	    html.push('<link href="');
+	    html.push(STYLES[i]);
+	    html.push('" type="text/css" rel="stylesheet"></link>\n');
+	}
+	$jm('head').append(html.join(''));
 
-		//launch client app
-		$jm('body').append(clientPanelTemplate({domain : domain}));
-		var lesson_id = Jmanual.Utils.getCookie("jLesson");
-		var lesson_name = Jmanual.Utils.getCookie("jLessonName");
-		if(!lesson_id){
-			Jmanual.showLessons();
-		} else {
-			Jmanual.gotoLesson(lesson_id, lesson_name);
-		}
-		$(document).mousemove(guardMouseMove);
+	//launch client app
+	$jm('body').append(clientPanelTemplate({domain : domain}));
+	var lesson_id = Jmanual.Utils.getCookie("jLesson");
+	var lesson_name = Jmanual.Utils.getCookie("jLessonName");
+	if(!lesson_id){
+	    Jmanual.showLessons();
+	} else {
+	    Jmanual.gotoLesson(lesson_id, lesson_name);
+	}
+	$jm(document).mousemove(guardMouseMove);
     });
 
 })();
