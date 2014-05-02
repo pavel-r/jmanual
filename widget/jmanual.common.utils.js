@@ -80,6 +80,22 @@ Jmanual.Utils = function() {
 		return elArray;
 	};
 	
+	var isGuarding = false;
+	var element = null;
+	
+	this.stopGuarding = function(){
+		isGuarding = false;
+		element = null;
+		$("#actionGuard").offset({ top: 0, left: 0});
+	};
+	
+	this.startGuarding = function(options){
+		if(options.selector){
+			element = options.selector;
+		}
+		isGuarding = true;
+	};
+	
 	this.assignMousemoveEvent = function($root, offset){
 		if (!$root) $root = $jm(document);
 		if (!offset) offset = {left : 0, top : 0};
