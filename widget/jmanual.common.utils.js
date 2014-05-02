@@ -46,19 +46,19 @@ Jmanual.Utils = function() {
 		return dims;
 	}
 
-	function getGuardFunction(offset){
-		return function(event){
-			event.pageX += offset.left;
-			event.pageY += offset.top;
-			if(isGuarding){
-				if(element && Jmanual.Utils.eventInsideElement(event, element)){
-					$("#actionGuard").offset({ top: 0, left: 0});
-				} else {
-					$("#actionGuard").offset({ top: event.pageY - 20, left: event.pageX - 20});
-				}
-			}
-		};
-	}
+    function getGuardFunction(offset){
+	return function(event){
+	    event.pageX += offset.left;
+	    event.pageY += offset.top;
+	    if(isGuarding){
+		if(element && Jmanual.Utils.eventInsideElement(event, element)){
+		    $jm("#actionGuard").offset({ top: 0, left: 0});
+		} else {
+		    $jm("#actionGuard").offset({ top: event.pageY - 20, left: event.pageX - 20});
+		}
+	    }
+	};
+    }
     
 	//Methods
 	var that = this;
