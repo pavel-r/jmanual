@@ -12,6 +12,7 @@
     var tips = null;
 
 	//guarding functionality. should be isolated
+	/*
 	var isGuarding = false;
 	var element = null;
 	
@@ -27,6 +28,7 @@
 		}
 		isGuarding = true;
 	}
+	*/
 	/*
 	function guardMouseMove(event){
 		if(isGuarding){
@@ -109,7 +111,7 @@
 
 	Jmanual.closeTip = function(){
 			$jm("#tipContainer").html("");
-			stopGuarding();
+			Jmanual.Utils.stopGuarding();
 			var tipId = 1 * (Jmanual.Utils.getCookie("jTip") || -1 );
 			var tip = tips[tipId];
 			if(tipId + 1 >= tips.length){
@@ -122,13 +124,13 @@
 			} else {
 				$jm("#nextBtn").css("color", "red");
 				if(tip.allowedArea){
-					startGuarding({selector : tip.allowedArea});
+					Jmanual.Utils.startGuarding({selector : tip.allowedArea});
 				}
 			}
 	};
 
 	Jmanual.nextTip = function () {
-			stopGuarding();
+			Jmanual.Utils.stopGuarding();
 			$jm("#tipContainer").html("");
 			$jm("#nextBtn").css("color", "");
 			var tipId = 1 * (Jmanual.Utils.getCookie("jTip") || -1 );
@@ -140,7 +142,7 @@
 			}
 			if (showTip(tips[tipId])){
 				Jmanual.Utils.setCookie("jTip", tipId, cookieExp);
-				startGuarding({});
+				Jmanual.Utils.startGuarding({});
 			}
 	};
 	
