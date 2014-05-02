@@ -175,7 +175,7 @@
 	} else {
 	    Jmanual.gotoLesson(lesson_id, lesson_name);
 	}
-	$jm(document).mousemove(guardMouseMove);
+	$jm("body").mousemove(guardMouseMove);
     });
 
 })();
