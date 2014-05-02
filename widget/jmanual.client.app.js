@@ -176,6 +176,12 @@
 	    Jmanual.gotoLesson(lesson_id, lesson_name);
 	}
 	$jm("body").mousemove(guardMouseMove);
+	$('iframe').contents().on({
+	    mousemove: function(event) {
+		guardMouseMove(event);
+	    }
+
+	});
     });
 
 })();
