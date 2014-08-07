@@ -20,8 +20,8 @@ var adminMain;
 app.configure('development', function(){
 	app.use('/app',express.static('widget'));
 	app.use('/img',express.static('img'));
-    //domain = "//localhost:5000";
-    domain = "//ancient-gorge-2130.herokuapp.com";
+    domain = "//localhost:5000";
+    //domain = "//ancient-gorge-2130.herokuapp.com";
 	clientMain = 'widget/client.main.dev.js';
 	adminMain = 'widget/admin.main.dev.js';
 });
@@ -40,7 +40,7 @@ var MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
 
 //connect to db
-var conString = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://heroku_app23023408:g45snehu57kfpam45uc3icn0a8@ds045907.mongolab.com:45907/heroku_app23023408';
+var conString = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL;
 var conOptions = {server: {auto_reconnect:true}};
 console.log(conString);
 var p_db;
